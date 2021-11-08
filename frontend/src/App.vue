@@ -1,16 +1,15 @@
 <template>
-    <div id="app">
-        <page-loader></page-loader>
+    <div class="nk-app-root ">
         <router-view/>
     </div>
 </template>
 
 <script>
-import PageLoader from '@/widgets/PageLoader.vue'
+
 export default {
     name: 'App',
-    components: {
-        PageLoader
+    mounted() {
+        document.body.classList.add('nk-body', 'npc-invest', 'bg-lighter')
     }
 }
 </script>

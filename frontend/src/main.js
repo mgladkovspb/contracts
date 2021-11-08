@@ -12,7 +12,8 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 
-import './assets/css/style.css'
+import './assets/css/dashlite.css'
+import './assets/css/theme.css'
 
 Vue.config.productionTip = false
 

@@ -27,8 +27,8 @@ const ApiService = {
         )
     },
 
-    get(resource, slug = "", globalHandler = true) {
-        return Vue.axios.get(`${resource}/${slug}`, { globalHandler })
+    get(resource, params, globalHandler = true) {
+        return Vue.axios.get(`${resource}`, { params, globalHandler })
     },
 
     post(resource, params, globalHandler = true) {
