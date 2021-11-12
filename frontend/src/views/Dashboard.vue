@@ -5,14 +5,30 @@
                 <div class="nk-content-inner">
                     <div class="nk-content-body">
                         <div class="nk-block">
-                            <div class="col-xxl-6">
-                                
-                            </div><!-- .col -->
-                            <div class="col-xxl-6">
-                                
-                            </div><!-- .col -->
-                            <div class="col-xxl-12">
-                                
+                            <div class="row g-gs">
+                                <div class="col-xxl-6">
+                                    <div class="row g-gs">
+                                        <div class="col-lg-6 col-xxl-12">
+                                            <amount-of-contracts></amount-of-contracts>
+                                        </div>
+                                        <div class="col-lg-6 col-xxl-12">
+                                            <div class="row g-gs">
+                                                <div class="col-sm-6 col-lg-12 col-xxl-6">
+                                                    <travel-expanses></travel-expanses>
+                                                </div>
+                                                <div class="col-sm-6 col-lg-12 col-xxl-6">
+                                                    <wage></wage>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><!-- .col -->
+                                <div class="col-xxl-6">
+                                    <profit></profit>
+                                </div><!-- .col -->
+                                <div class="col-xxl-12">
+                                    <contracts-list></contracts-list>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -24,14 +40,20 @@
 
 <script>
 
-//import PageHeader from '@/widgets/PageHeader.vue'
-//import ContractsList from '@/widgets/ContractsList.vue'
+import ContractsList from '@/components/ContractsList.vue'
+import AmountOfContracts from '@/components/AmountOfContracts.vue'
+import TravelExpanses from '@/components/TravelExpanses.vue'
+import Wage from '@/components/Wage.vue'
+import Profit from '@/components/Profit.vue'
 
 export default {
     name: 'Dashboard',
     components: {
-        //PageHeader,
-        //ContractsList
+        ContractsList,
+        AmountOfContracts,
+        TravelExpanses,
+        Wage,
+        Profit
     }
 }
 </script>

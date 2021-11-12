@@ -14,7 +14,7 @@ const actions = {
         ApiService.get('api/contracts', params)
             .then(({ data }) => {
                 context.commit(UPDATE_CONTRACTS, data)
-                resolve(data)
+                resolve(data.length)
             })
             .catch((error) => {
                 console.log(error)

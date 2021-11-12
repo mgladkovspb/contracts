@@ -1,7 +1,7 @@
 async function list(req, res) {
     const page = req.query.page || 0
 
-    const items = 20
+    const items = 10
     const result = []
     for (var i = page * items; i < (page * items) + items; i++) {
         result.push(i)

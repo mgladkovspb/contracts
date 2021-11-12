@@ -11,6 +11,11 @@ const routes = [
         component: Dashboard
     },
     {
+        path: '/contract/:id?',
+        name: 'ContractDetails',
+        component: () => import('../views/ContractDetails.vue')
+    },
+    {
         path: '/signin',
         name: 'SignIn',
         // route level code-splitting
