@@ -3,8 +3,8 @@
         <div class="card-inner">
             <div class="card-title-group align-start gx-3 mb-3">
                 <div class="card-title">
-                    <h6 class="title">Sales Overview</h6>
-                    <p>In 30 days sales of product subscription. <a href="#">See Details</a></p>
+                    <h6 class="title">Рентабельность</h6>
+                    <p>Рентабельность по договорам за последний год. </p>
                 </div>
                 <div class="card-tools">
                     
@@ -12,10 +12,10 @@
             </div>
             <div class="nk-sale-data-group align-center justify-between gy-3 gx-5">
                 <div class="nk-sale-data">
-                    <span class="amount">$82,944.60</span>
+                    <span class="amount">82,944.60&#8381;</span>
                 </div>
                 <div class="nk-sale-data">
-                    <span class="amount sm">1,937 <small>Subscribers</small></span>
+                    <span class="amount sm">1,937 <small>Всего договоров</small></span>
                 </div>
             </div>
             <line-chart :chart-data="profit" :options="options" :class="'nk-sales-ck large pt-4'"></line-chart>

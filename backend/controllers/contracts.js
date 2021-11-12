@@ -4,7 +4,8 @@ async function list(req, res) {
     const items = 10
     const result = []
     for (var i = page * items; i < (page * items) + items; i++) {
-        result.push(i)
+        let num = i.toString().padStart(5, '0') + '/21'
+        result.push(num)
     }
     res.json(result)
 }

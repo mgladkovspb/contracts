@@ -31,11 +31,8 @@
                     </div>
                     <div class="nk-tb-col tb-col-sm">
                         <div class="user-card">
-                            <div class="user-avatar user-avatar-sm bg-purple">
-                                <span>AB</span>
-                            </div>
                             <div class="user-name">
-                                <span class="tb-lead">Abu Bin Ishtiyak</span>
+                                <span class="tb-lead">ТКС-ГРУПП ООО</span>
                             </div>
                         </div>
                     </div>
@@ -43,13 +40,13 @@
                         <span class="tb-sub">02/11/2020</span>
                     </div>
                     <div class="nk-tb-col tb-col-lg">
-                        <span class="tb-sub text-primary">SUB-2309232</span>
+                        <span class="tb-sub text-primary">МСК</span>
                     </div>
                     <div class="nk-tb-col tb-col-lg">
-                        <span class="tb-sub">Paid</span>
+                        <span class="tb-sub">ЭТАМ</span>
                     </div>
                     <div class="nk-tb-col">
-                        <span class="tb-sub tb-amount">4,596.75 <span>USD</span></span>
+                        <span class="tb-sub tb-amount">4,596.75 <span>&#8381;</span></span>
                     </div>
                     <div class="nk-tb-col nk-tb-col-action">
                         <div class="dropdown">

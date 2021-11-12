@@ -3,7 +3,7 @@
         <div class="card-inner">
             <div class="card-title-group align-start mb-2">
                 <div class="card-title">
-                    <h6 class="title">Avg Subscriptions</h6>
+                    <h6 class="title">ФОТ</h6>
                 </div>
                 <div class="card-tools">
                     <em class="card-hint icon ni ni-help-fill" data-toggle="tooltip" data-placement="left" title="Daily Avg. subscription"></em>
@@ -12,7 +12,7 @@
             <div class="align-end flex-sm-wrap g-4 flex-md-nowrap">
                 <div class="nk-sale-data">
                     <span class="amount">346.2</span>
-                    <span class="sub-title"><span class="change up text-success"><em class="icon ni ni-arrow-long-up"></em>2.45%</span>since last week</span>
+                    <span class="sub-title"><span class="change up text-success"><em class="icon ni ni-arrow-long-up"></em>2.45%</span>с пр. месяца&nbsp;&nbsp;</span>
                 </div>
                 <bar-chart :chart-data="wage" :options="options" :class="'nk-sales-ck'"></bar-chart>
             </div>

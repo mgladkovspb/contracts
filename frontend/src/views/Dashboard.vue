@@ -29,6 +29,8 @@
                                 <div class="col-xxl-12">
                                     <contracts-list></contracts-list>
                                 </div>
+
+                                <scroll-top></scroll-top>
                             </div>
                         </div>
                     </div>
@@ -45,6 +47,7 @@ import AmountOfContracts from '@/components/AmountOfContracts.vue'
 import TravelExpanses from '@/components/TravelExpanses.vue'
 import Wage from '@/components/Wage.vue'
 import Profit from '@/components/Profit.vue'
+import ScrollTop from '@/widgets/ScrollTop.vue'
 
 export default {
     name: 'Dashboard',
@@ -53,7 +56,8 @@ export default {
         AmountOfContracts,
         TravelExpanses,
         Wage,
-        Profit
+        Profit,
+        ScrollTop
     }
 }
 </script>

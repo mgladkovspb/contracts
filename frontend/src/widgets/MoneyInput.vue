@@ -12,11 +12,6 @@
 <script>
 export default {
     props: ['value', 'disabled'],
-    data () {
-        return {
-            content: this.value
-        }
-    },
     computed: {
         result: {
             get() { 

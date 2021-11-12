@@ -3,7 +3,7 @@
         <div class="card-inner">
             <div class="card-title-group align-start mb-2">
                 <div class="card-title">
-                    <h6 class="title">Active Subscriptions</h6>
+                    <h6 class="title">КМД расходы</h6>
                 </div>
                 <div class="card-tools">
                     <em class="card-hint icon ni ni-help-fill" data-toggle="tooltip" data-placement="left" title="Total active subscription"></em>
@@ -12,7 +12,7 @@
             <div class="align-end flex-sm-wrap g-4 flex-md-nowrap">
                 <div class="nk-sale-data">
                     <span class="amount">9.69K</span>
-                    <span class="sub-title"><span class="change down text-danger"><em class="icon ni ni-arrow-long-down"></em>1.93%</span>since last month</span>
+                    <span class="sub-title"><span class="change down text-danger"><em class="icon ni ni-arrow-long-down"></em>1.93%</span>с пр. месяца&nbsp;&nbsp;</span>
                 </div>
                 <bar-chart :chart-data="expanses" :options="options" :class="'nk-sales-ck'"></bar-chart>
             </div>

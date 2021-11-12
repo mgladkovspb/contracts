@@ -3,8 +3,8 @@
         <div class="card-inner">
             <div class="card-title-group align-start mb-2">
                 <div class="card-title">
-                    <h6 class="title">Sales Revenue</h6>
-                    <p>In last 30 days revenue from subscription.</p>
+                    <h6 class="title">Сумма по договорам</h6>
+                    <p>Сумма по договорам за последний год.</p>
                 </div>
                 <div class="card-tools">
                     <em class="card-hint icon ni ni-help-fill" data-toggle="tooltip" data-placement="left" title="Revenue from subscription"></em>
@@ -14,11 +14,11 @@
                 <div class="nk-sale-data-group flex-md-nowrap g-4">
                     <div class="nk-sale-data">
                         <span class="amount">14,299.59 <span class="change down text-danger"><em class="icon ni ni-arrow-long-down"></em>16.93%</span></span>
-                        <span class="sub-title">This Month</span>
+                        <span class="sub-title">Предыдущий месяц</span>
                     </div>
                     <div class="nk-sale-data">
                         <span class="amount">7,299.59 <span class="change up text-success"><em class="icon ni ni-arrow-long-up"></em>4.26%</span></span>
-                        <span class="sub-title">This Week</span>
+                        <span class="sub-title">Этот месяц</span>
                     </div>
                 </div>
                 <bar-chart :chart-data="amount" :options="options" :class="'nk-sales-ck sales-revenue'"></bar-chart>
