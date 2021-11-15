@@ -13,11 +13,15 @@ export default {
             })
         },
         scrollFn() {
-            let goTopBtn = this.$refs.goTopBtn
+            let goTopBtn = this.$refs.goTopBtn,
+                display = 'none'
+
             if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-                goTopBtn.style.display = "block";
-            } else {
-                goTopBtn.style.display = "none";
+                display = 'block'
+            } 
+
+            if(goTopBtn) {
+                goTopBtn.style.display = display
             }
         }
     },

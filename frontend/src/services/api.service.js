@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import JwtService from "@/services/jwt.service";
 
 function successResponseHandler(response) {
     return response
@@ -25,6 +26,12 @@ const ApiService = {
             successResponseHandler, 
             errorResponseHandler
         )
+    },
+
+    setHeader() {
+        Vue.axios.defaults.headers.common[
+        'Authorization'
+        ] = `Token ${JwtService.getToken()}`;
     },
 
     get(resource, params, globalHandler = true) {

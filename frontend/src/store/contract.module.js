@@ -11,6 +11,7 @@ const getters = {}
 const actions = {
     [LOAD_CONTRACTS](context, params) {
         return new Promise((resolve) => {
+        ApiService.setHeader()
         ApiService.get('api/contracts', params)
             .then(({ data }) => {
                 context.commit(UPDATE_CONTRACTS, data)
@@ -24,7 +25,15 @@ const actions = {
 }
 const mutations = {
     [UPDATE_CONTRACTS](state, contracts) {
-        state.list.push(...contracts)
+        contracts.forEach(element => {
+            let index = state.list.findIndex(item => item === element)
+            if(index == -1) {
+                state.list.push(element)
+            } else {
+                state.list[index] = element
+            }
+        })
+        //state.list.push(...contracts)
     },
 }
 

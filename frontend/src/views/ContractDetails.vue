@@ -10,7 +10,7 @@
                                 <div class="nk-block-head-content">
                                     <h4 class="title nk-block-title">Договор</h4>
                                     <div class="nk-block-des">
-                                        <p>You can alow display form in column as example below.</p>
+                                        <!-- <p>You can alow display form in column as example below.</p> -->
                                     </div>
                                 </div>
                                 <div class="nk-block-head-content">

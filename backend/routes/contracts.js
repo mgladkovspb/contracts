@@ -1,11 +1,12 @@
 const Router = require('express')
 const router = Router()
 const controller = require('../controllers/contracts')
+const verifyToken = require('../middleware/verify-token')
 
-router.get('/', controller.list)
-router.get('/:id', controller.findOne)
-router.post('/', controller.insertOne)
-router.put('/', controller.updateOne)
-router.delete('/', controller.deleteOne)
+router.get('/', verifyToken, controller.list)
+router.get('/:id', verifyToken, controller.findOne)
+router.post('/', verifyToken, controller.insertOne)
+router.put('/', verifyToken, controller.updateOne)
+router.delete('/', verifyToken, controller.deleteOne)
 
 module.exports = router

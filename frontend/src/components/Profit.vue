@@ -15,7 +15,7 @@
                     <span class="amount">82,944.60&#8381;</span>
                 </div>
                 <div class="nk-sale-data">
-                    <span class="amount sm">1,937 <small>Всего договоров</small></span>
+                    <span class="amount sm">1,937 <small>договоров</small></span>
                 </div>
             </div>
             <line-chart :chart-data="profit" :options="options" :class="'nk-sales-ck large pt-4'"></line-chart>
