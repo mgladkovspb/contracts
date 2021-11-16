@@ -1,5 +1,5 @@
 <template>
-    <button class="btn btn-icon btn-primary scrollTopButton" @click="goTop" ref="goTopBtn">&nbsp;&nbsp;<em class="icon ni ni-arrow-up"></em>&nbsp;&nbsp;</button>
+    <button class="btn btn-icon btn-primary scrollTopButton" @click="goTop" ref="goTopBtn"><em class="icon ni ni-arrow-up"></em></button>
 </template>
 
 <script>
@@ -33,10 +33,13 @@ export default {
 
 <style scoped>
 .scrollTopButton {
-  display: none; /* Hidden by default */
-  position: fixed; /* Fixed/sticky position */
-  bottom: 20px; /* Place the button at the bottom of the page */
-  right: 30px; /* Place the button 30px from the right */
-  z-index: 99; /* Make sure it does not overlap */
+    display: none; /* Hidden by default */
+    position: fixed; /* Fixed/sticky position */
+    bottom: 20px; /* Place the button at the bottom of the page */
+    right: 30px; /* Place the button 30px from the right */
+    z-index: 99; /* Make sure it does not overlap */
+    padding-left: 7px !important;
+    padding-right: 7px !important;
+    padding-bottom: 4px !important;
 }
 </style>

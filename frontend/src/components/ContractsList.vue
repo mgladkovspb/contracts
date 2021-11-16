@@ -6,11 +6,7 @@
                     <h6 class="title"><span class="mr-2">Журнал договоров</span> </h6>
                 </div>
                 <div class="card-tools">
-                    <!-- <ul class="card-tools-nav">
-                        <li><a href="#"><span>Paid</span></a></li>
-                        <li><a href="#"><span>Pending</span></a></li>
-                        <li class="active"><a href="#"><span>All</span></a></li>
-                    </ul> -->
+                    <router-link :to="{ name: 'ContractDetails' }" class="btn btn-dim btn-icon nk-ibx-hide btn-primary"><em class="icon ni ni-plus-sm"></em></router-link>
                 </div>
             </div>
         </div>
