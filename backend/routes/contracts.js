@@ -7,6 +7,6 @@ router.get('/', verifyToken, controller.list)
 router.get('/:id', verifyToken, controller.findOne)
 router.post('/', verifyToken, controller.insertOne)
 router.put('/', verifyToken, controller.updateOne)
-router.delete('/', verifyToken, controller.deleteOne)
+router.delete('/:id', verifyToken, controller.deleteOne)
 
 module.exports = router

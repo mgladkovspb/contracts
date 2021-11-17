@@ -1,7 +1,8 @@
 const { Schema, model } = require('mongoose')
 
 const Contract = new Schema({
-    number: { type: String },
+    ds: { type: Boolean, default: false },
+    number: { type: String, index: true },
     contractDate: { type: Date, index: true },
     plannedDate: { type: Date },
     actualDate: { type: Date },
@@ -13,6 +14,7 @@ const Contract = new Schema({
     wage: { type: Number, default: 0 },
     wagePrepayment: { type: Number, default: 0 },
     rigging: { type: Number, default: 0 },
+    state: { type: String, default: 'draft' } // draft, delete, accepted
 })
 
 module.exports = model('Contract', Contract)

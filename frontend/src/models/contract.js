@@ -1,5 +1,6 @@
 class Contract {
     constructor() {
+        this._id = ''
         this.ds = false
         this.number = ''
         this.contractDate = ''
@@ -13,6 +14,7 @@ class Contract {
         this.wage = 0
         this.wagePrepayment = 0
         this.rigging = 0
+        this.state = 'draft'
     }
 }
 

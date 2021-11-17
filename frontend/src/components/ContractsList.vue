@@ -53,6 +53,10 @@
                 </div>
             </div>
             <infinite-loading @infinite="loadNextPage">
+                <infinite-loading>
+                    <div slot="no-more">No more message</div>
+                    <div slot="no-results">No results message</div>
+                </infinite-loading>
             </infinite-loading>
         </div>
     </div>
