@@ -16,13 +16,16 @@
                                 <div class="nk-block-head-content">
                                     <ul class="nk-ibx-head-tools g-1">
                                         <li>
-                                            <router-link :to="{ name: 'Dashboard' }" class="btn btn-icon nk-ibx-hide btn-success"><em class="icon ni ni-check"></em></router-link>
+                                            <button class="btn btn-icon nk-ibx-hide btn-success" @click="acceptedHandler"><em class="icon ni ni-check"></em></button>
                                         </li>
                                         <li>
-                                            <router-link :to="{ name: 'Dashboard' }" class="btn btn-icon nk-ibx-hide btn-primary"><em class="icon ni ni-save"></em></router-link>
+                                            <button class="btn btn-icon nk-ibx-hide btn-primary" @click="draftHandler"><em class="icon ni ni-save"></em></button>
                                         </li>
                                         <li>
-                                            <router-link :to="{ name: 'Dashboard' }" class="btn btn-icon nk-ibx-hide btn-danger"><em class="icon ni ni-cross-circle"></em></router-link>
+                                            <button class="btn btn-icon nk-ibx-hide btn-danger" @click="deletedHandler"><em class="icon ni ni-cross-circle"></em></button>
+                                        </li>
+                                        <li>
+                                            <router-link title="Назад" :to="{ name: 'Dashboard' }" class="btn btn-icon nk-ibx-hide btn-warning"><em class="icon ni ni-arrow-left-circle"></em></router-link>
                                         </li>
                                     </ul>
                                 </div>
@@ -78,7 +81,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-6">
+                                            <div class="col-lg-4">
                                                 <div class="form-group">
                                                     <label class="form-label" for="phone-no-1">Организация</label>
                                                     <div class="form-control-wrap">
@@ -86,11 +89,24 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-6">
+                                            <div class="col-lg-4">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="pay-amount-1">Город</label>
+                                                    <label class="form-label" for="phone-no-1">Объект</label>
                                                     <div class="form-control-wrap">
-                                                        <input type="text" class="form-control" v-model="contract.city">
+                                                        <input type="text" class="form-control" v-model="contract.objecct">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <label class="form-label">Город</label>
+                                                    <div class="form-control-wrap">
+                                                        <div class="form-control-select">
+                                                            <select v-model="contract.city" class="form-control">
+                                                                <option disabled value="">Выберите один из вариантов</option>
+                                                                <option v-for="city in cities" :key="city">{{ city }}</option>
+                                                            </select>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -232,6 +248,16 @@
 </template>
 
 <script>
+import { 
+    LOAD_CITIES,
+    GET_NEW_NUMBER,
+    GET_ONE_CONTRACT, 
+    INSERT_ONE_CONTRACT, 
+    UPDATE_ONE_CONTRACT, 
+    DELETE_ONE_CONTRACT 
+} from '@/store/contract.module'
+
+import { mapActions } from 'vuex'
 import moment from 'moment'
 import Contract from '@/models/contract'
 import MoneyInput from '@/widgets/MoneyInput.vue'
@@ -245,11 +271,94 @@ export default {
     },
     data() {
         return {
-            contract: new Contract()
+            contract: new Contract(),
+            cities: []
         }
     },
+    methods: {
+        ...mapActions([
+            LOAD_CITIES,
+            GET_NEW_NUMBER,
+            GET_ONE_CONTRACT, 
+            INSERT_ONE_CONTRACT, 
+            UPDATE_ONE_CONTRACT, 
+            DELETE_ONE_CONTRACT
+        ]),
+        prepareDataToSending() {
+            const result = new Contract()
+            result._id = this.contract._id
+            result.ds = this.contract.ds
+            result.number = this.contract.number
+            result.contractDate = moment(this.contract.contractDate, 'DD.MM.YYYY').toDate()
+            result.plannedDate = moment(this.contract.plannedDate, 'DD.MM.YYYY').toDate()
+            result.actualDate = moment(this.contract.actualDate, 'DD.MM.YYYY').toDate()
+            result.customer = this.contract.customer
+            result.city = this.contract.city
+            result.prepayment = this.contract.prepayment
+            result.profit = this.contract.profit
+            result.wage = this.contract.wage
+            result.wagePrepayment = this.contract.wagePrepayment
+            result.rigging = this.contract.rigging
+            result.state = this.contract.state
+            return result
+        },
+        sendData() {
+            const data = this.prepareDataToSending()
+
+            let action = data._id === '' ? INSERT_ONE_CONTRACT : UPDATE_ONE_CONTRACT
+            this[action](data).then(message => this.$router.push({ path: 'Dashboard' }))
+                .catch(message => console.log(message))
+        },
+        loadData() {
+            if(this.$route.params.id == undefined) {
+                this[GET_NEW_NUMBER]().then((number) => {
+                    this.contract.number = number
+                    this.contract.contractDate = moment().format('DD.MM.YYYY')
+                }).catch(message => console.log(message))
+            } else {
+                this[GET_ONE_CONTRACT](this.$route.params.id).then((data) => {
+                    this.contract._id = data._id
+                    this.contract.ds = data.ds
+                    this.contract.number = data.number = 
+                    this.contract.contractDate = moment(data.contractDate).format('DD.MM.YYYY')
+                    this.contract.plannedDate = moment(data.plannedDate).format('DD.MM.YYYY')
+                    this.contract.actualDate = moment(data.actualDate).format('DD.MM.YYYY')
+                    this.contract.customer = data.customer
+                    this.contract.city = data.city
+                    this.contract.prepayment = data.prepayment
+                    this.contract.profit = data.profit
+                    this.contract.wage = data.wage
+                    this.contract.wagePrepayment = data.wagePrepayment
+                    this.contract.rigging = data.rigging
+                    this.contract.state = data.state
+                }).catch(message => console.log(message))
+            }
+
+            this[LOAD_CITIES]().then((data) => {
+                this.cities = data
+            }).catch(message => console.log(message))
+        },
+        acceptedHandler() {
+            this.contract.state = 'accepted'
+            this.sendData()
+        },
+        draftHandler() {
+            this.contract.state = 'draft'
+            this.sendData()
+        },
+        deletedHandler() {
+            if(this.contract._id !== '') {
+                this[DELETE_ONE_CONTRACT](this.contract._id)
+                    .then(message => this.$router.push({ path: 'Dashboard' }))
+                    .catch(message => console.log(message))
+            } else {
+                console.log('Нечего удалять')
+                this.$router.push({ path: 'Dashboard' })
+            }
+        },
+    },
     mounted() {
-        this.contract.contractDate = moment().format('DD.MM.YYYY')
+        this.loadData()
     }
 }
 </script>

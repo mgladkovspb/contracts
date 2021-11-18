@@ -53,10 +53,8 @@
                 </div>
             </div>
             <infinite-loading @infinite="loadNextPage">
-                <infinite-loading>
-                    <div slot="no-more">No more message</div>
-                    <div slot="no-results">No results message</div>
-                </infinite-loading>
+                <div class="infinite-message-slot" slot="no-more">Все договора загружены</div>
+                <div class="infinite-message-slot" slot="no-results">Список договоров пуст</div>
             </infinite-loading>
         </div>
     </div>
@@ -76,19 +74,16 @@ export default {
     data() {
         return {
             page: 0,
+            contracts: [],
         }
-    },
-    computed: {
-        ...mapState({
-            contracts: state => state.contract.list
-        })
     },
     methods: {
         ...mapActions([LOAD_CONTRACTS]),
         loadNextPage($state) {
             this.loading = true
-            this[LOAD_CONTRACTS]({ page: this.page }).then((length) => {
-                if(length) {
+            this[LOAD_CONTRACTS]({ page: this.page }).then((data) => {
+                if(data.length) {
+                    this.contracts.push(...data)
                     this.page++
                     $state.loaded()
                 } else {
@@ -103,5 +98,8 @@ export default {
 <style scoped>
 .no-decoration {
     text-decoration: none !important;
+}
+.infinite-message-slot {
+    margin: 15px;
 }
 </style>

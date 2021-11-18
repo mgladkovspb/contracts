@@ -7,6 +7,7 @@ const Contract = new Schema({
     plannedDate: { type: Date },
     actualDate: { type: Date },
     customer: { type: String },
+    object: { type: String },
     city: { type: String },
     sum: { type: Number, default: 0 },
     prepayment: { type: Number, default: 0 },
@@ -14,7 +15,7 @@ const Contract = new Schema({
     wage: { type: Number, default: 0 },
     wagePrepayment: { type: Number, default: 0 },
     rigging: { type: Number, default: 0 },
-    state: { type: String, default: 'draft' } // draft, delete, accepted
+    state: { type: String, default: 'draft' } // draft, deleted, accepted
 })
 
 module.exports = model('Contract', Contract)

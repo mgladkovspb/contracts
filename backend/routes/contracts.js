@@ -9,4 +9,7 @@ router.post('/', verifyToken, controller.insertOne)
 router.put('/', verifyToken, controller.updateOne)
 router.delete('/:id', verifyToken, controller.deleteOne)
 
+router.get('/fn/cities', verifyToken, controller.cities)
+router.get('/fn/number', verifyToken, controller.number)
+
 module.exports = router

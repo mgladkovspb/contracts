@@ -7,6 +7,7 @@ class Contract {
         this.plannedDate = ''
         this.actualDate = ''
         this.customer = ''
+        this.object = ''
         this.city = ''
         this.sum = 0
         this.prepayment = 0
