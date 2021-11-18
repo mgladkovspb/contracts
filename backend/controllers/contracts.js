@@ -7,31 +7,22 @@ async function list(req, res) {
     const items = 10
 
     try {
-        const result = Contract
-            .find()
-            .sort({ contractDate: -1 })
-            .skip(page * items)
-            .limit(items)
-            .lean()
-            .exec()
-        res.json(result)
+        const result = await Contract.paginate({}, {
+            sort: { contractDate: -1 },
+            lean: true,
+            offset: page * items,
+            limit: items
+        })
+        res.json(result.docs)
     } catch(error) {
         res.status(500).json([])
         console.log(error)
     }
-    // const page = req.query.page || 0
-
-    // const items = 10
-    // const result = []
-    // for (var i = page * items; i < (page * items) + items; i++) {
-    //     let num = i.toString().padStart(5, '0') + '/21'
-    //     result.push(num)
-    // }
-    // res.json(result)
 }
 
 async function findOne(req, res) {
     try {
+        console.log(req.params)
         const exists = await Contract.findOne({
             _id: mongoose.Types.ObjectId(req.params.id) 
         }).lean().exec()
@@ -83,12 +74,12 @@ async function updateOne(req, res) {
 async function deleteOne(req, res) {
     try {
         const exists = await Contract.findOne({ 
-            _id: req.params.id 
+            _id: mongoose.Types.ObjectId(req.params.id)
         }).exec()
         if(!exists) {
             return res.status(404).json({ message: 'Договор не найден' })
         }
-        exists.state = 'delete'
+        exists.state = 'deleted'
         await exists.save()
         res.json({ message: 'Договор помечен на удаление' })
     } catch(error) {

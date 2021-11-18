@@ -3,15 +3,12 @@ import ApiService from "@/services/api.service"
 export const LOAD_CONTRACTS = "loadContracts"
 export const LOAD_CITIES = "loadCities"
 export const GET_NEW_NUMBER = "getNewNumber"
-export const GET_ONE_CONTRACT = "insertOneContract"
+export const GET_ONE_CONTRACT = "getOneContract"
 export const INSERT_ONE_CONTRACT = "insertOneContract"
 export const UPDATE_ONE_CONTRACT = "updateOneContract"
 export const DELETE_ONE_CONTRACT = "deleteOneContract"
-//export const UPDATE_CONTRACTS = "updateContracts"
 
-const state = {
-    //list: []
-}
+const state = {}
 const getters = {}
 
 const actions = {
@@ -21,15 +18,6 @@ const actions = {
         ApiService.get('api/contracts', params)
             .then(data => resolve(data))
             .catch(error => reject(error))
-            // .then(({ data }) => {
-            //     //context.commit(UPDATE_CONTRACTS, data)
-            //     //resolve(data.length)
-            //     resolve(data)
-            // })
-            // .catch((error) => {
-            //     reject(error)
-            //     console.log(error)
-            // })
         })
     },
     [GET_ONE_CONTRACT](context, id) {
@@ -75,25 +63,13 @@ const actions = {
     [DELETE_ONE_CONTRACT](context, id) {
         return new Promise((resolve, reject) => {
             ApiService.setHeader()
-            ApiService.put('api/contracts/' + id)
+            ApiService.delete('api/contracts/' + id)
                 .then(({ data }) => resolve(data))
                 .catch(error => reject(error))
         })
     },
 }
-const mutations = {
-    // [UPDATE_CONTRACTS](state, contracts) {
-    //     contracts.forEach(element => {
-    //         let index = state.list.findIndex(item => item === element)
-    //         if(index == -1) {
-    //             state.list.push(element)
-    //         } else {
-    //             state.list[index] = element
-    //         }
-    //     })
-    //     //state.list.push(...contracts)
-    // },
-}
+const mutations = {}
 
 export default {
     state,

@@ -9,6 +9,9 @@ ApiService.init()
 import VueTheMask from 'vue-the-mask'
 Vue.use(VueTheMask)
 
+import moment from 'vue-moment'
+Vue.use(moment)
+
 import './assets/css/dashlite.css'
 import './assets/css/theme.css'
 

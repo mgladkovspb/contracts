@@ -294,6 +294,7 @@ export default {
             result.actualDate = moment(this.contract.actualDate, 'DD.MM.YYYY').toDate()
             result.customer = this.contract.customer
             result.city = this.contract.city
+            result.sum = this.contract.sum
             result.prepayment = this.contract.prepayment
             result.profit = this.contract.profit
             result.wage = this.contract.wage
@@ -306,7 +307,7 @@ export default {
             const data = this.prepareDataToSending()
 
             let action = data._id === '' ? INSERT_ONE_CONTRACT : UPDATE_ONE_CONTRACT
-            this[action](data).then(message => this.$router.push({ path: 'Dashboard' }))
+            this[action](data).then(message => this.$router.push({ name: 'Dashboard' }))
                 .catch(message => console.log(message))
         },
         loadData() {
@@ -319,12 +320,13 @@ export default {
                 this[GET_ONE_CONTRACT](this.$route.params.id).then((data) => {
                     this.contract._id = data._id
                     this.contract.ds = data.ds
-                    this.contract.number = data.number = 
+                    this.contract.number = data.number
                     this.contract.contractDate = moment(data.contractDate).format('DD.MM.YYYY')
                     this.contract.plannedDate = moment(data.plannedDate).format('DD.MM.YYYY')
                     this.contract.actualDate = moment(data.actualDate).format('DD.MM.YYYY')
                     this.contract.customer = data.customer
                     this.contract.city = data.city
+                    this.contract.sum = data.sum
                     this.contract.prepayment = data.prepayment
                     this.contract.profit = data.profit
                     this.contract.wage = data.wage
@@ -349,11 +351,11 @@ export default {
         deletedHandler() {
             if(this.contract._id !== '') {
                 this[DELETE_ONE_CONTRACT](this.contract._id)
-                    .then(message => this.$router.push({ path: 'Dashboard' }))
+                    .then(message => this.$router.push({ name: 'Dashboard' }))
                     .catch(message => console.log(message))
             } else {
                 console.log('Нечего удалять')
-                this.$router.push({ path: 'Dashboard' })
+                this.$router.push({ name: 'Dashboard' })
             }
         },
     },

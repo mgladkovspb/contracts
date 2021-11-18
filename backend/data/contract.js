@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose')
+const mongoosePaginate = require('mongoose-paginate-v2')
 
 const Contract = new Schema({
     ds: { type: Boolean, default: false },
@@ -17,5 +18,7 @@ const Contract = new Schema({
     rigging: { type: Number, default: 0 },
     state: { type: String, default: 'draft' } // draft, deleted, accepted
 })
+
+Contract.plugin(mongoosePaginate)
 
 module.exports = model('Contract', Contract)

@@ -21,33 +21,33 @@
                     <div class="nk-tb-col"><span>Сумма</span></div>
                     <div class="nk-tb-col"><span>&nbsp;</span></div>
                 </div>
-                <div class="nk-tb-item" v-for="contract in contracts" :key="contract">
+                <div class="nk-tb-item" v-for="contract in contracts" :key="contract._id">
                     <div class="nk-tb-col">
-                        <span class="tb-lead"><a href="#">#{{ contract }}</a></span>
+                        <span class="tb-lead"><a href="#">#{{ contract.number }}</a></span>
                     </div>
                     <div class="nk-tb-col tb-col-sm">
                         <div class="user-card">
                             <div class="user-name">
-                                <span class="tb-lead">ТКС-ГРУПП ООО</span>
+                                <span class="tb-lead">{{ contract.customer }}</span>
                             </div>
                         </div>
                     </div>
                     <div class="nk-tb-col">
-                        <span class="tb-sub">02/11/2020</span>
+                        <span class="tb-sub">{{ contract.contractDate | moment('DD.MM.YYYY') }}</span>
                     </div>
                     <div class="nk-tb-col tb-col-lg">
-                        <span class="tb-sub text-primary">МСК</span>
+                        <span class="tb-sub text-primary">{{ contract.city }}</span>
                     </div>
                     <div class="nk-tb-col tb-col-lg">
-                        <span class="tb-sub">ЭТАМ</span>
+                        <span class="tb-sub">{{ contract.object }}</span>
                     </div>
                     <div class="nk-tb-col">
-                        <span class="tb-sub tb-amount">4,596.75 <span>&#8381;</span></span>
+                        <span class="tb-sub tb-amount">{{ currency(contract.sum) }}</span>
                     </div>
                     <div class="nk-tb-col nk-tb-col-action">
                         <div class="dropdown">
                             <!-- <b-button variant="link" class="text-soft dropdown-toggle btn btn-icon btn-trigger no-decoration"><em class="icon ni ni-edit"></em></b-button> -->
-                            <router-link :to="{ name: 'ContractDetails', params: { id: contract }}" class="text-soft dropdown-toggle btn btn-icon btn-trigger no-decoration"><em class="icon ni ni-edit"></em></router-link>
+                            <router-link :to="{ name: 'ContractDetails', params: { id: contract._id }}" class="text-soft dropdown-toggle btn btn-icon btn-trigger no-decoration"><em class="icon ni ni-edit"></em></router-link>
                         </div>
                     </div>
                 </div>
@@ -61,7 +61,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapActions } from 'vuex'
 import { LOAD_CONTRACTS } from '@/store/contract.module'
 
 import InfiniteLoading from 'vue-infinite-loading'
@@ -79,9 +79,17 @@ export default {
     },
     methods: {
         ...mapActions([LOAD_CONTRACTS]),
+        currency(num) {
+            const formatter = new Intl.NumberFormat('ru-RU', { 
+                style: 'currency', 
+                currency: 'RUB',
+                currencyDisplay: 'symbol'
+            })
+            return formatter.format(num)
+        },
         loadNextPage($state) {
             this.loading = true
-            this[LOAD_CONTRACTS]({ page: this.page }).then((data) => {
+            this[LOAD_CONTRACTS]({ page: this.page }).then(({ data }) => {
                 if(data.length) {
                     this.contracts.push(...data)
                     this.page++
