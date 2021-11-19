@@ -22,7 +22,6 @@ async function list(req, res) {
 
 async function findOne(req, res) {
     try {
-        console.log(req.params)
         const exists = await Contract.findOne({
             _id: mongoose.Types.ObjectId(req.params.id) 
         }).lean().exec()
