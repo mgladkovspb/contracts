@@ -44,7 +44,7 @@
                                                                 <input type="checkbox" v-model="contract.ds">
                                                             </div>
                                                         </div>
-                                                        <input type="text" class="form-control" v-model="contract.number" :disabled="!contract.ds">
+                                                        <input type="text" class="form-control" v-model="contract.number" >
                                                     </div>
                                                 </div>
                                             </div>
@@ -102,10 +102,18 @@
                                                     <label class="form-label">Город</label>
                                                     <div class="form-control-wrap">
                                                         <div class="form-control-select">
-                                                            <select v-model="contract.city" class="form-control">
+                                                            <editable-select></editable-select>
+                                                            <!-- <select name="env" class="form-control" style="position:absolute;" onchange="this.nextElementSibling.value=this.value">
+                                                                <option></option>
+                                                                <option>1</option>
+                                                                <option>2</option>
+                                                                <option>3</option> 
+                                                            </select>
+                                                            <input v-model="contract.city" style="width: 178px; margin-top: 1px; border: none; position:relative; left:1px; margin-right: 25px;"/> -->
+                                                            <!-- <select v-model="contract.city" class="form-control">
                                                                 <option disabled value="">Выберите один из вариантов</option>
                                                                 <option v-for="city in cities" :key="city">{{ city }}</option>
-                                                            </select>
+                                                            </select> -->
                                                         </div>
                                                     </div>
                                                 </div>
@@ -262,12 +270,14 @@ import moment from 'moment'
 import Contract from '@/models/contract'
 import MoneyInput from '@/widgets/MoneyInput.vue'
 import ScrollTop from '@/widgets/ScrollTop.vue'
+import EditableSelect from '@/widgets/EditableSelect'
 
 export default {
     name: 'ContractDetails',
     components: {
         MoneyInput,
-        ScrollTop
+        ScrollTop,
+        EditableSelect
     },
     data() {
         return {
