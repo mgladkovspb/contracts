@@ -4,7 +4,7 @@ const mongoose = require('mongoose')
 
 module.exports = async app => {
     mongoose.set('debug', true)
-    await mongoose.connect("mongodb://localhost:27017/contract", { 
+    await mongoose.connect('mongodb://localhost:27017/contract', { 
         useNewUrlParser:true,
         useUnifiedTopology: true,
         autoIndex: false,
