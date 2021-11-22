@@ -8,8 +8,8 @@ const https = require('https')
 const configure = require('./configure')
 const app = express()
 
-module.exports = config => {
-    const { PORT = 3000 } = process.env
+module.exports = options => {
+    const PORT = options.port || 3000
 
     app.use(helmet())
     app.use(compression())
@@ -23,11 +23,11 @@ module.exports = config => {
     app.use(express.static(publicPath, staticConf))
     app.use('/', history())
 
-    if(args['all-in-one']) {
+    if(options.usessl) {
         app.use('/', express.static(path.join(__dirname, '../frontend/dist')))
         https.createServer({
-            key: fs.readFileSync('../backend/wild.abz-1.ru.key'),
-            cert: fs.readFileSync('../backend/wild.abz-1.ru.crt')
+            key: fs.readFileSync(options.cert.key),
+            cert: fs.readFileSync(options.cert.file)
         }, app)
         .listen(PORT, () => {
             console.log(`HTTPS: App run on ${PORT} port.`)

@@ -1,8 +1,8 @@
 import ApiService from '@/services/api.service'
 import JwtService from '@/services/jwt.service'
 
-export const AUTH_SIGNIN = "signin"
-export const AUTH_SIGNOUT = "signout"
+export const AUTH_SIGNIN = "authSignin"
+export const AUTH_SIGNOUT = "authSignout"
 
 export const UPDATE_STATE = "updateState"
 
@@ -18,6 +18,7 @@ const actions = {
         ApiService.post('api/auth/signin', params)
             .then(({ data }) => {
                 context.commit(UPDATE_STATE, data)
+                resolve()
             })
             .catch((error) => {
                 console.log(error)
