@@ -14,14 +14,15 @@ const getters = {}
 
 const actions = {
     [AUTH_SIGNIN](context, params) {
-        return new Promise((resolve) => {
-        ApiService.post('api/auth/signin', params)
-            .then(({ data }) => {
+        return new Promise((resolve, reject) => {
+            ApiService.post('api/auth/signin/', params)
+            .then(({ data }) => { 
                 context.commit(UPDATE_STATE, data)
-                resolve()
+                resolve(data) 
             })
-            .catch((error) => {
+            .catch((error) => { 
                 console.log(error)
+                reject(error) 
             })
         })
     },

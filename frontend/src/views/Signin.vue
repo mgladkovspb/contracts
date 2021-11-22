@@ -57,7 +57,7 @@ export default {
             const username = this.username 
             const password = this.password
             this[AUTH_SIGNIN]({ username, password })
-                .then(() => this.$router.push({ name: 'Dashboard' }))
+                .then(message => this.$router.push({ name: 'Dashboard' }))
                 .catch(error => console.log(error))
         },
         changePasswordState() {
