@@ -37,7 +37,7 @@ async function findOne(req, res) {
 
 async function insertOne(req, res) {
     try {
-        const exists = await Contract.findOne({ number: req.body.number }).exec()
+        const exists = await Contract.findOne({ number: req.body.number }).lean().exec()
         if(exists) {
             return res.status(403).json({ message: 'Договор с таким номером уже существует' })
         }
@@ -57,7 +57,7 @@ async function updateOne(req, res) {
     try {
         const exists = await Contract.findOne({ 
             _id: mongoose.Types.ObjectId(req.body._id) 
-        }).exec()
+        }).lean().exec()
         if(!exists) {
             return res.status(404).json({ message: 'Договор не найден' })
         }
@@ -74,7 +74,7 @@ async function deleteOne(req, res) {
     try {
         const exists = await Contract.findOne({ 
             _id: mongoose.Types.ObjectId(req.params.id)
-        }).exec()
+        }).lean().exec()
         if(!exists) {
             return res.status(404).json({ message: 'Договор не найден' })
         }

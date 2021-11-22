@@ -15,7 +15,7 @@ const getters = {}
 const actions = {
     [AUTH_SIGNIN](context, params) {
         return new Promise((resolve, reject) => {
-            ApiService.post('api/auth/signin/', params)
+            ApiService.post('api/auth/signin', params)
             .then(({ data }) => { 
                 context.commit(UPDATE_STATE, data)
                 resolve(data) 

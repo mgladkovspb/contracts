@@ -54,11 +54,9 @@ export default {
     methods: {
         ...mapActions([AUTH_SIGNIN]),
         signin() {
-            const username = this.username 
-            const password = this.password
-            this[AUTH_SIGNIN]({ username, password })
-                .then(message => this.$router.push({ name: 'Dashboard' }))
-                .catch(error => console.log(error))
+            this[AUTH_SIGNIN]({ username: this.username, password: this.password })
+                //.then(message => this.$router.push({ name: 'Dashboard' }))
+                //.catch(error => console.log(error))
         },
         changePasswordState() {
             this.passwordType = this.passwordType == 'password' ? 'text' : 'password'

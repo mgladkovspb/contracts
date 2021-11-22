@@ -31,7 +31,9 @@ const ApiService = {
     setHeader() {
         Vue.axios.defaults.headers.common[
         'Authorization'
-        ] = `Token ${JwtService.getToken()}`;
+        ] = `Token ${JwtService.getToken()}`
+        Vue.axios.defaults.headers.common['Content-Type'] = 'application/json'
+        Vue.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
     },
 
     get(resource, params, globalHandler = true) {
