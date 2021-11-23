@@ -14,7 +14,12 @@ function errorResponseHandler(error) {
     }
 
     if (error.response) {
-        console.log(error.response.data.message)
+        return Promise.reject({
+            status: error.response.status,
+            username: Boolean(error.response.data.username),
+            password: Boolean(error.response.data.password),
+            message: error.response.data.message
+        })
     }
 }
 
@@ -32,8 +37,6 @@ const ApiService = {
         Vue.axios.defaults.headers.common[
         'Authorization'
         ] = `Token ${JwtService.getToken()}`
-        Vue.axios.defaults.headers.common['Content-Type'] = 'application/json'
-        Vue.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
     },
 
     get(resource, params, globalHandler = true) {

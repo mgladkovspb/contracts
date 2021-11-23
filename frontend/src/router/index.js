@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Dashboard from '@/views/Dashboard.vue'
 import Signin from '@/views/Signin.vue'
-//import store from '@/store'
+import store from '@/store'
 
 Vue.use(VueRouter)
 
@@ -45,11 +45,11 @@ const router = new VueRouter({
     //scrollBehavior
 })
 
-// router.beforeEach((to, from, next) => {
-//     if (to.name !== 'SignIn' && !store.state.auth.user) {
-//         next({ name: 'SignIn', path: '/signin', replace: true })
-//     } 
-//     else next()
-// })
+router.beforeEach((to, from, next) => {
+    if (to.name !== 'SignIn' && !store.state.auth.user) {
+        next({ name: 'SignIn', path: '/signin', replace: true })
+    } 
+    else next()
+})
 
 export default router

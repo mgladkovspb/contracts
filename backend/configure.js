@@ -1,6 +1,7 @@
 const express = require('express')
 const routes = require('./routes')
 const mongoose = require('mongoose')
+const crypto = require('crypto')
 
 module.exports = async app => {
     const isDevServer = process.env.WEBPACK_DEV_SERVER
@@ -13,7 +14,7 @@ module.exports = async app => {
             autoIndex: false,
         })
     }
-
+    global.jwtkey = crypto.randomBytes(48).toString('hex')
     app.use(express.json({ limit: '50mb' }))
     routes(app)
 }

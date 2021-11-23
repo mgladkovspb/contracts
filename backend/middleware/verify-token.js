@@ -1,15 +1,18 @@
 const jwt = require('jsonwebtoken')
 
 module.exports = (req, res, next) => {
-    let token = req.headers["x-access-token"]
-    console.log(req.headers)
+    const header = req.headers.authorization
+    const token = header.split(' ')[1]
+
     if (!token) {
         return res.status(403).send({
             message: 'No token provided!'
         })
     }
 
-    jwt.verify(token, config.secret, (err, decoded) => {
+    console.log(global.jwtkey)
+    console.log(token)
+    jwt.verify(token, global.jwtkey, (err, decoded) => {
         if (err) {
             return res.end(401)
         }

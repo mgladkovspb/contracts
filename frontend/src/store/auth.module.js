@@ -16,12 +16,11 @@ const actions = {
     [AUTH_SIGNIN](context, params) {
         return new Promise((resolve, reject) => {
             ApiService.post('api/auth/signin', params)
-            .then(({ data }) => { 
-                context.commit(UPDATE_STATE, data)
-                resolve(data) 
+            .then((res) => { 
+                context.commit(UPDATE_STATE, res.data)
+                resolve(res.data) 
             })
             .catch((error) => { 
-                console.log(error)
                 reject(error) 
             })
         })

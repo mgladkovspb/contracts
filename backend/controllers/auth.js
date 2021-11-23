@@ -8,22 +8,20 @@ const generateAccessToken = (id, name) => {
         id,
         name
     }
-    console.log(payload)
-    return jwt.sign(payload, 'jwtkey', { expiresIn: '1h' })
+    console.log(global.jwtkey)
+    return jwt.sign(payload, global.jwtkey, { expiresIn: '3h' })
 }
 
-
 async function signin(req, res) {
-    console.log(req.headers)
     try {
         const { username, password } = req.body
         const user = await User.findOne({ username }).lean().exec()
         if(!user) {
-            return res.status(400).json({ message: 'Пользователь не найден' })
+            return res.status(400).json({ username: true, message: 'Пользователь не найден' })
         }
         const validPassword = bcrypt.compareSync(password, user.password)
         if(!validPassword) {
-            return res.json({ message: 'Неверный пароль' })
+            return res.status(400).json({ password: true, message: 'Неверный пароль' })
         }
         const token = generateAccessToken(user._id.toString(), user.username)
         res.json({ id: user._id, token })
