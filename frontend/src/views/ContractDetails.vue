@@ -85,7 +85,7 @@
                                                 <div class="form-group">
                                                     <label class="form-label" for="phone-no-1">Организация</label>
                                                     <div class="form-control-wrap">
-                                                        <editable-select></editable-select>
+                                                        <editable-select v-model="contract.customer" :options="customers"></editable-select>
                                                         <!-- <input type="text" class="form-control" v-model="contract.customer"> -->
                                                     </div>
                                                 </div>
@@ -102,7 +102,7 @@
                                                 <div class="form-group">
                                                     <label class="form-label">Город</label>
                                                     <div class="form-control-wrap">
-                                                        <editable-select></editable-select>
+                                                        <editable-select v-model="contract.city" :options="cities"></editable-select>
                                                     </div>
                                                 </div>
                                             </div>
