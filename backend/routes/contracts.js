@@ -11,5 +11,6 @@ router.delete('/:id', verifyToken, controller.deleteOne)
 
 router.get('/fn/cities', verifyToken, controller.cities)
 router.get('/fn/number', verifyToken, controller.number)
+router.get('/fn/customers', verifyToken, controller.customers)
 
 module.exports = router

@@ -85,7 +85,8 @@
                                                 <div class="form-group">
                                                     <label class="form-label" for="phone-no-1">Организация</label>
                                                     <div class="form-control-wrap">
-                                                        <input type="text" class="form-control" v-model="contract.customer">
+                                                        <editable-select></editable-select>
+                                                        <!-- <input type="text" class="form-control" v-model="contract.customer"> -->
                                                     </div>
                                                 </div>
                                             </div>
@@ -93,7 +94,7 @@
                                                 <div class="form-group">
                                                     <label class="form-label" for="phone-no-1">Объект</label>
                                                     <div class="form-control-wrap">
-                                                        <input type="text" class="form-control" v-model="contract.objecct">
+                                                        <input type="text" class="form-control" v-model="contract.objecct" :class="'select2 select2-container select2-container--default'">
                                                     </div>
                                                 </div>
                                             </div>
@@ -101,20 +102,7 @@
                                                 <div class="form-group">
                                                     <label class="form-label">Город</label>
                                                     <div class="form-control-wrap">
-                                                        <div class="form-control-select">
-                                                            <editable-select></editable-select>
-                                                            <!-- <select name="env" class="form-control" style="position:absolute;" onchange="this.nextElementSibling.value=this.value">
-                                                                <option></option>
-                                                                <option>1</option>
-                                                                <option>2</option>
-                                                                <option>3</option> 
-                                                            </select>
-                                                            <input v-model="contract.city" style="width: 178px; margin-top: 1px; border: none; position:relative; left:1px; margin-right: 25px;"/> -->
-                                                            <!-- <select v-model="contract.city" class="form-control">
-                                                                <option disabled value="">Выберите один из вариантов</option>
-                                                                <option v-for="city in cities" :key="city">{{ city }}</option>
-                                                            </select> -->
-                                                        </div>
+                                                        <editable-select></editable-select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -258,6 +246,7 @@
 <script>
 import { 
     LOAD_CITIES,
+    LOAD_CUSTOMERS,
     GET_NEW_NUMBER,
     GET_ONE_CONTRACT, 
     INSERT_ONE_CONTRACT, 
@@ -282,12 +271,19 @@ export default {
     data() {
         return {
             contract: new Contract(),
-            cities: []
+            cities: [],
+            customers: [],
+            attributes: {
+                'ref': 'openIndicator',
+                'role': 'presentation',
+                'class': 'select2-selection__arrow',
+            }
         }
     },
     methods: {
         ...mapActions([
             LOAD_CITIES,
+            LOAD_CUSTOMERS,
             GET_NEW_NUMBER,
             GET_ONE_CONTRACT, 
             INSERT_ONE_CONTRACT, 
@@ -349,6 +345,10 @@ export default {
             this[LOAD_CITIES]().then((data) => {
                 this.cities = data
             }).catch(message => console.log(message))
+
+            this[LOAD_CUSTOMERS]().then((data) => {
+                this.customers = data
+            }).catch(message => console.log(message))
         },
         acceptedHandler() {
             this.contract.state = 'accepted'
@@ -374,3 +374,21 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+.my-select .vs__dropdown-toggle {
+    display: block;
+    width: 100%;
+    height: calc(2.125rem + 2px);
+    padding: 0.4375rem 1rem;
+    font-size: 0.8125rem;
+    font-weight: 400;
+    line-height: 1.25rem;
+    color: #3c4d62;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #dbdfea;
+    border-radius: 4px;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+</style>

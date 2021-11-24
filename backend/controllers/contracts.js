@@ -57,7 +57,7 @@ async function updateOne(req, res) {
     try {
         const exists = await Contract.findOne({ 
             _id: mongoose.Types.ObjectId(req.body._id) 
-        }).lean().exec()
+        }).exec()
         if(!exists) {
             return res.status(404).json({ message: 'Договор не найден' })
         }
@@ -74,7 +74,7 @@ async function deleteOne(req, res) {
     try {
         const exists = await Contract.findOne({ 
             _id: mongoose.Types.ObjectId(req.params.id)
-        }).lean().exec()
+        }).exec()
         if(!exists) {
             return res.status(404).json({ message: 'Договор не найден' })
         }
@@ -105,6 +105,15 @@ async function number(req, res) {
     }
 }
 
+async function customers(req, res) {
+    try {
+        res.json(await contractHelper.listOfCustomers())
+    } catch (error) {
+        res.status(500).json({ message: error.message })
+        console.log(error)
+    }
+}
+
 module.exports = {
     list,
     findOne,
@@ -112,5 +121,6 @@ module.exports = {
     updateOne,
     deleteOne,
     cities,
-    number
+    number,
+    customers
 }
