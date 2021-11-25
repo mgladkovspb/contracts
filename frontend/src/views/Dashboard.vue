@@ -14,7 +14,7 @@
                                         <div class="col-lg-6 col-xxl-12">
                                             <div class="row g-gs">
                                                 <div class="col-sm-6 col-lg-12 col-xxl-6">
-                                                    <travel-expanses></travel-expanses>
+                                                    <rigging></rigging>
                                                 </div>
                                                 <div class="col-sm-6 col-lg-12 col-xxl-6">
                                                     <wage></wage>
@@ -44,7 +44,7 @@
 
 import ContractsList from '@/components/ContractsList.vue'
 import AmountOfContracts from '@/components/AmountOfContracts.vue'
-import TravelExpanses from '@/components/TravelExpanses.vue'
+import Rigging from '@/components/Rigging.vue'
 import Wage from '@/components/Wage.vue'
 import Profit from '@/components/Profit.vue'
 import ScrollTop from '@/widgets/ScrollTop.vue'
@@ -54,7 +54,7 @@ export default {
     components: {
         ContractsList,
         AmountOfContracts,
-        TravelExpanses,
+        Rigging,
         Wage,
         Profit,
         ScrollTop

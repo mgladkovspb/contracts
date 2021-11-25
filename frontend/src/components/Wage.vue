@@ -21,6 +21,9 @@
 </template>
 
 <script>
+import { LOAD_WAGE } from '@/store/statistics.module'
+import { mapActions } from 'vuex'
+
 import BarChart from '@/widgets/BarChart.vue'
 
 export default {
@@ -31,11 +34,11 @@ export default {
     data() {
         return {
             wage: {
-                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+                labels: [],
                 dataUnit: 'USD',
                 stacked: true,
                 datasets: [{
-                    label: "Active User",
+                    label: '',
                     backgroundColor: [
                         'rgba(101,118,255,0.2)',
                         'rgba(101,118,255,0.2)',
@@ -45,7 +48,7 @@ export default {
                         '#6576ff'
                     ],
                     color: ['rgba(101,118,255,0.2)', '#6576ff'],
-                    data: [8200, 7800, 9500, 5500, 9200, 9690]
+                    data: []
                 }] 
             },
             options: {
@@ -100,6 +103,15 @@ export default {
                 }
             }
         }
+    },
+    methods: {
+        ...mapActions([LOAD_WAGE])
+    },
+    mounted() {
+        this[LOAD_WAGE]().then(stat => {
+            this.wage.labels = stat.labels
+            this.wage.datasets[0].data = stat.data
+        }).catch(error => console.log(error))
     }
 }
 

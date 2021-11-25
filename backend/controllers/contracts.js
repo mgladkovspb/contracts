@@ -114,6 +114,15 @@ async function customers(req, res) {
     }
 }
 
+async function objects(req, res) {
+    try {
+        res.json(await contractHelper.listOfObjects())
+    } catch (error) {
+        res.status(500).json({ message: error.message })
+        console.log(error)
+    }
+}
+
 module.exports = {
     list,
     findOne,
@@ -122,5 +131,6 @@ module.exports = {
     deleteOne,
     cities,
     number,
-    customers
+    customers,
+    objects
 }

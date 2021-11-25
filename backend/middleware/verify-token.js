@@ -10,13 +10,14 @@ module.exports = (req, res, next) => {
         })
     }
 
-    console.log(global.jwtkey)
-    console.log(token)
-    jwt.verify(token, global.jwtkey, (err, decoded) => {
-        if (err) {
-            return res.end(401)
+    jwt.verify(token, global.jwtkey, (error, decoded) => {
+        if (error) {
+            return res.status(403).json({ message: 'Token invalid!' })
         }
-        req.userId = decoded.id
+        req.user = {
+            id: decoded.id,
+            token
+        }
         next()
     })
 }

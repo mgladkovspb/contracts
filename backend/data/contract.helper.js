@@ -53,8 +53,23 @@ async function listOfCustomers() {
     return result
 }
 
+async function listOfObjects() {
+    let result = []
+
+    try {
+        const group = await Contract.aggregate()
+            .group({ _id: '$object' }).exec()
+        result = group.map(item => item._id)
+    } catch (error) {
+        console.log(error)
+    }
+
+    return result
+}
+
 module.exports = {
     newContractNumber,
     listOfCities,
-    listOfCustomers
+    listOfCustomers,
+    listOfObjects
 }

@@ -4,6 +4,8 @@ import Dashboard from '@/views/Dashboard.vue'
 import Signin from '@/views/Signin.vue'
 import store from '@/store'
 
+import { AUTH_VERIFY } from '@/store/auth.module'
+
 Vue.use(VueRouter)
 
 // function scrollBehavior (to, from, savedPosition) {
@@ -46,10 +48,16 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-    if (to.name !== 'SignIn' && !store.state.auth.user) {
-        next({ name: 'SignIn', path: '/signin', replace: true })
-    } 
-    else next()
+    if(to.name == 'SignIn') {
+        next()
+    } else {
+        Promise.all([store.dispatch(AUTH_VERIFY)]).then(() => {
+            if (!store.state.auth.user) {
+                next({ name: 'SignIn', path: '/signin', replace: true })
+            } 
+            else next()
+        }).catch(error => next({ name: 'SignIn', path: '/signin', replace: true }))
+    }
 })
 
 export default router

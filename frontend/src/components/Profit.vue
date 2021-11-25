@@ -24,6 +24,9 @@
 </template>
 
 <script>
+import { LOAD_PROFIT } from '@/store/statistics.module'
+import { mapActions } from 'vuex'
+
 import LineChart from '@/widgets/LineChart.vue'
 
 export default {
@@ -34,7 +37,7 @@ export default {
     data() {
         return {
             profit: {
-                labels: ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"],
+                labels: [],
                 dataUnit: 'USD',
                 lineTension: .3,
                 datasets: [{
@@ -53,7 +56,7 @@ export default {
                     pointHoverBorderWidth: 2,
                     pointRadius: 3,
                     pointHitRadius: 3,
-                    data: [6200, 7850, 8500, 6500, 5790, 9690, 8200, 6860, 9500, 8590, 8230, 8950, 8200, 7680, 8500, 5500, 9200, 9690, 8200, 7800, 9500, 7500, 9200, 9690, 8200, 7800, 8500, 9100, 9360, 9690]
+                    data: []
                 }] 
             },
             options: {
@@ -131,6 +134,15 @@ export default {
                 }
             }
         }
+    },
+    methods: {
+        ...mapActions([LOAD_PROFIT])
+    },
+    mounted() {
+        this[LOAD_PROFIT]().then(stat => {
+            this.profit.labels = stat.labels
+            this.profit.datasets[0].data = stat.data
+        }).catch(error => console.log(error))
     }
 }
 </script>

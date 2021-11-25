@@ -2,6 +2,7 @@ import ApiService from '@/services/api.service'
 import JwtService from '@/services/jwt.service'
 
 export const AUTH_SIGNIN = "authSignin"
+export const AUTH_VERIFY = "authVerify"
 export const AUTH_SIGNOUT = "authSignout"
 
 export const UPDATE_STATE = "updateState"
@@ -22,6 +23,20 @@ const actions = {
             })
             .catch((error) => { 
                 reject(error) 
+            })
+        })
+    },
+    [AUTH_VERIFY](context) {
+        return new Promise((resolve, reject) => {
+            ApiService.setHeader()
+            ApiService.get('api/auth/verify')
+            .then((res) => { 
+                context.commit(UPDATE_STATE, res.data)
+                resolve()
+            })
+            .catch((error) => { 
+                context.commit(UPDATE_STATE, null)
+                reject(error)
             })
         })
     },

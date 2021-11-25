@@ -3,7 +3,7 @@
         <div class="card-inner">
             <div class="card-title-group align-start mb-2">
                 <div class="card-title">
-                    <h6 class="title">КМД расходы</h6>
+                    <h6 class="title">Такелажные работы</h6>
                 </div>
                 <div class="card-tools">
                     <em class="card-hint icon ni ni-help-fill" data-toggle="tooltip" data-placement="left" title="Total active subscription"></em>
@@ -14,24 +14,27 @@
                     <span class="amount">9.69K</span>
                     <span class="sub-title"><span class="change down text-danger"><em class="icon ni ni-arrow-long-down"></em>1.93%</span>с пр. месяца&nbsp;&nbsp;</span>
                 </div>
-                <bar-chart :chart-data="expanses" :options="options" :class="'nk-sales-ck'"></bar-chart>
+                <bar-chart :chart-data="rigging" :options="options" :class="'nk-sales-ck'"></bar-chart>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import { LOAD_RIGGING } from '@/store/statistics.module'
+import { mapActions } from 'vuex'
+
 import BarChart from '@/widgets/BarChart.vue'
 
 export default {
-    name: 'AmountOfContracts',
+    name: 'Rigging',
     components: {
       BarChart
     },
     data() {
         return {
-            expanses: {
-                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+            rigging: {
+                labels: [],
                 dataUnit: 'USD',
                 stacked: true,
                 datasets: [{
@@ -45,7 +48,7 @@ export default {
                         '#6576ff'
                     ],
                     color: '#6576ff',
-                    data: [8200, 7800, 9500, 5500, 9200, 9690]
+                    data: []
                 }] 
             },
             options: {
@@ -100,6 +103,15 @@ export default {
                 }
             }
         }
+    },
+    methods: {
+        ...mapActions([LOAD_RIGGING])
+    },
+    mounted() {
+        this[LOAD_RIGGING]().then(stat => {
+            this.rigging.labels = stat.labels
+            this.rigging.datasets[0].data = stat.data
+        }).catch(error => console.log(error))
     }
 }
 

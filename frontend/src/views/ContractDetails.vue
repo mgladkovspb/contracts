@@ -94,7 +94,8 @@
                                                 <div class="form-group">
                                                     <label class="form-label" for="phone-no-1">Объект</label>
                                                     <div class="form-control-wrap">
-                                                        <input type="text" class="form-control" v-model="contract.objecct" :class="'select2 select2-container select2-container--default'">
+                                                        <editable-select v-model="contract.object" :options="objects"></editable-select>
+                                                        <!-- <input type="text" class="form-control" v-model="contract.object" :class="'select2 select2-container select2-container--default'"> -->
                                                     </div>
                                                 </div>
                                             </div>
@@ -247,6 +248,7 @@
 import { 
     LOAD_CITIES,
     LOAD_CUSTOMERS,
+    LOAD_OBJECTS,
     GET_NEW_NUMBER,
     GET_ONE_CONTRACT, 
     INSERT_ONE_CONTRACT, 
@@ -273,17 +275,14 @@ export default {
             contract: new Contract(),
             cities: [],
             customers: [],
-            attributes: {
-                'ref': 'openIndicator',
-                'role': 'presentation',
-                'class': 'select2-selection__arrow',
-            }
+            objects: [],
         }
     },
     methods: {
         ...mapActions([
             LOAD_CITIES,
             LOAD_CUSTOMERS,
+            LOAD_OBJECTS,
             GET_NEW_NUMBER,
             GET_ONE_CONTRACT, 
             INSERT_ONE_CONTRACT, 
@@ -299,6 +298,7 @@ export default {
             result.plannedDate = moment(this.contract.plannedDate, 'DD.MM.YYYY').toDate()
             result.actualDate = moment(this.contract.actualDate, 'DD.MM.YYYY').toDate()
             result.customer = this.contract.customer
+            result.object = this.contract.object
             result.city = this.contract.city
             result.sum = this.contract.sum
             result.prepayment = this.contract.prepayment
@@ -331,6 +331,7 @@ export default {
                     this.contract.plannedDate = moment(data.plannedDate).format('DD.MM.YYYY')
                     this.contract.actualDate = moment(data.actualDate).format('DD.MM.YYYY')
                     this.contract.customer = data.customer
+                    this.contract.object = data.object
                     this.contract.city = data.city
                     this.contract.sum = data.sum
                     this.contract.prepayment = data.prepayment
@@ -348,6 +349,10 @@ export default {
 
             this[LOAD_CUSTOMERS]().then((data) => {
                 this.customers = data
+            }).catch(message => console.log(message))
+
+            this[LOAD_OBJECTS]().then((data) => {
+                this.objects = data
             }).catch(message => console.log(message))
         },
         acceptedHandler() {

@@ -28,6 +28,9 @@
 </template>
 
 <script>
+import { LOAD_AMOUNT } from '@/store/statistics.module'
+import { mapActions } from 'vuex'
+
 import BarChart from '@/widgets/BarChart.vue'
 
 export default {
@@ -38,11 +41,11 @@ export default {
     data() {
         return {
             amount: {
-                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                dataUnit: 'USD',
+                labels: [],
+                dataUnit: 'RUB',
                 stacked: true,
                 datasets: [{
-                    label: "Sales Revenue",
+                    label: "Сумма по договорам",
                     color: ['rgba(101,118,255,0.2)', '#6576ff'],
                     backgroundColor: [
                         'rgba(101,118,255,0.2)',
@@ -58,7 +61,7 @@ export default {
                         'rgba(101,118,255,0.2)',
                         '#6576ff'
                     ],
-                    data: [11000, 8000, 12500, 5500, 9500, 14299, 11000, 8000, 12500, 5500, 9500, 14299]
+                    data: []
                 }]
             },
             options: {
@@ -113,6 +116,15 @@ export default {
                 }
             }
         }
+    },
+    methods: {
+        ...mapActions([LOAD_AMOUNT])
+    },
+    mounted() {
+        this[LOAD_AMOUNT]().then(stat => {
+            this.amount.labels = stat.labels
+            this.amount.datasets[0].data = stat.data
+        }).catch(error => console.log(error))
     }
 }
 </script>

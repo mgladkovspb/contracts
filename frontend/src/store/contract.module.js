@@ -3,6 +3,7 @@ import ApiService from "@/services/api.service"
 export const LOAD_CONTRACTS = "loadContracts"
 export const LOAD_CITIES = "loadCities"
 export const LOAD_CUSTOMERS = "loadCustomers"
+export const LOAD_OBJECTS = "loadObjects"
 export const GET_NEW_NUMBER = "getNewNumber"
 export const GET_ONE_CONTRACT = "getOneContract"
 export const INSERT_ONE_CONTRACT = "insertOneContract"
@@ -41,6 +42,14 @@ const actions = {
         return new Promise((resolve, reject) => {
             ApiService.setHeader()
             ApiService.get('api/contracts/fn/customers')
+                .then(({ data }) => resolve(data))
+                .catch(error => reject(error))
+        })
+    },
+    [LOAD_OBJECTS](context) {
+        return new Promise((resolve, reject) => {
+            ApiService.setHeader()
+            ApiService.get('api/contracts/fn/objects')
                 .then(({ data }) => resolve(data))
                 .catch(error => reject(error))
         })
