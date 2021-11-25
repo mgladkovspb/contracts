@@ -4,7 +4,7 @@
             <div class="card-title-group align-start mb-2">
                 <div class="card-title">
                     <h6 class="title">Сумма по договорам</h6>
-                    <p>Сумма по договорам за последний год.</p>
+                    <p>Сумма по договорам за 12 месяцев</p>
                 </div>
                 <div class="card-tools">
                     <em class="card-hint icon ni ni-help-fill" data-toggle="tooltip" data-placement="left" title="Revenue from subscription"></em>
@@ -13,11 +13,11 @@
             <div class="align-end gy-3 gx-5 flex-wrap flex-md-nowrap flex-lg-wrap flex-xxl-nowrap">
                 <div class="nk-sale-data-group flex-md-nowrap g-4">
                     <div class="nk-sale-data">
-                        <span class="amount">14,299.59 <span class="change down text-danger"><em class="icon ni ni-arrow-long-down"></em>16.93%</span></span>
+                        <span class="amount">{{ currency(amountSummary.previous) }} <span class="change down text-danger"><em class="icon ni ni-arrow-long-down"></em>16.93%</span></span>
                         <span class="sub-title">Предыдущий месяц</span>
                     </div>
                     <div class="nk-sale-data">
-                        <span class="amount">7,299.59 <span class="change up text-success"><em class="icon ni ni-arrow-long-up"></em>4.26%</span></span>
+                        <span class="amount">{{ currency(amountSummary.current) }} <span class="change up text-success"><em class="icon ni ni-arrow-long-up"></em>4.26%</span></span>
                         <span class="sub-title">Этот месяц</span>
                     </div>
                 </div>
@@ -33,37 +33,18 @@ import { mapActions } from 'vuex'
 
 import BarChart from '@/widgets/BarChart.vue'
 
+import format from '@/mixins/format'
+
 export default {
     name: 'AmountOfContracts',
+    mixins: [format],
     components: {
       BarChart
     },
     data() {
         return {
-            amount: {
-                labels: [],
-                dataUnit: 'RUB',
-                stacked: true,
-                datasets: [{
-                    label: "Сумма по договорам",
-                    color: ['rgba(101,118,255,0.2)', '#6576ff'],
-                    backgroundColor: [
-                        'rgba(101,118,255,0.2)',
-                        'rgba(101,118,255,0.2)',
-                        'rgba(101,118,255,0.2)',
-                        'rgba(101,118,255,0.2)',
-                        'rgba(101,118,255,0.2)',
-                        'rgba(101,118,255,0.2)',
-                        'rgba(101,118,255,0.2)',
-                        'rgba(101,118,255,0.2)',
-                        'rgba(101,118,255,0.2)',
-                        'rgba(101,118,255,0.2)',
-                        'rgba(101,118,255,0.2)',
-                        '#6576ff'
-                    ],
-                    data: []
-                }]
-            },
+            amount: null,
+            dataset: [],
             options: {
                 legend: {
                     display: false,
@@ -117,14 +98,52 @@ export default {
             }
         }
     },
+    computed: {
+        amountSummary() {
+            let temp = [...this.dataset]
+
+            const result = {
+                current: temp.pop() || 0,
+                previous: temp.pop() || 0,
+            }
+
+            return result
+        }
+    },
     methods: {
-        ...mapActions([LOAD_AMOUNT])
+        ...mapActions([LOAD_AMOUNT]),
+        updateChart() {
+            this[LOAD_AMOUNT]().then(stat => {
+                this.dataset = stat.data
+                this.amount = {
+                    labels: stat.labels,
+                    dataUnit: 'RUB',
+                    stacked: true,
+                    datasets: [{
+                        label: "Сумма по договорам",
+                        color: ['rgba(101,118,255,0.2)', '#6576ff'],
+                        backgroundColor: [
+                            'rgba(101,118,255,0.2)',
+                            'rgba(101,118,255,0.2)',
+                            'rgba(101,118,255,0.2)',
+                            'rgba(101,118,255,0.2)',
+                            'rgba(101,118,255,0.2)',
+                            'rgba(101,118,255,0.2)',
+                            'rgba(101,118,255,0.2)',
+                            'rgba(101,118,255,0.2)',
+                            'rgba(101,118,255,0.2)',
+                            'rgba(101,118,255,0.2)',
+                            'rgba(101,118,255,0.2)',
+                            '#6576ff'
+                        ],
+                        data: this.dataset
+                    }]
+                }
+            }).catch(error => console.log(error))
+        }
     },
     mounted() {
-        this[LOAD_AMOUNT]().then(stat => {
-            this.amount.labels = stat.labels
-            this.amount.datasets[0].data = stat.data
-        }).catch(error => console.log(error))
+        this.updateChart()
     }
 }
 </script>

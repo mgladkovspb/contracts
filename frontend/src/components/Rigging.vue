@@ -11,7 +11,7 @@
             </div>
             <div class="align-end flex-sm-wrap g-4 flex-md-nowrap">
                 <div class="nk-sale-data">
-                    <span class="amount">9.69K</span>
+                    <span class="amount">{{ currency(riggingSummary.current) }}</span>
                     <span class="sub-title"><span class="change down text-danger"><em class="icon ni ni-arrow-long-down"></em>1.93%</span>с пр. месяца&nbsp;&nbsp;</span>
                 </div>
                 <bar-chart :chart-data="rigging" :options="options" :class="'nk-sales-ck'"></bar-chart>
@@ -26,31 +26,18 @@ import { mapActions } from 'vuex'
 
 import BarChart from '@/widgets/BarChart.vue'
 
+import format from '@/mixins/format'
+
 export default {
     name: 'Rigging',
+    mixins: [format],
     components: {
       BarChart
     },
     data() {
         return {
-            rigging: {
-                labels: [],
-                dataUnit: 'USD',
-                stacked: true,
-                datasets: [{
-                    label: "Active User",
-                    backgroundColor: [
-                        'rgba(101,118,255,0.2)',
-                        'rgba(101,118,255,0.2)',
-                        'rgba(101,118,255,0.2)',
-                        'rgba(101,118,255,0.2)',
-                        'rgba(101,118,255,0.2)',
-                        '#6576ff'
-                    ],
-                    color: '#6576ff',
-                    data: []
-                }] 
-            },
+            rigging: null,
+            dataset: [],
             options: {
                 legend: {
                     display: false,
@@ -104,14 +91,42 @@ export default {
             }
         }
     },
+    computed: {
+        riggingSummary() {
+            let temp = [...this.dataset]
+            return {
+                current: temp.pop()
+            }
+        }
+    },
     methods: {
-        ...mapActions([LOAD_RIGGING])
+        ...mapActions([LOAD_RIGGING]),
+        updateChart() {
+            this[LOAD_RIGGING]().then(stat => {
+                this.dataset = stat.data
+                this.rigging = {
+                    labels: stat.labels,
+                    dataUnit: 'USD',
+                    stacked: true,
+                    datasets: [{
+                        label: "Active User",
+                        backgroundColor: [
+                            'rgba(101,118,255,0.2)',
+                            'rgba(101,118,255,0.2)',
+                            'rgba(101,118,255,0.2)',
+                            'rgba(101,118,255,0.2)',
+                            'rgba(101,118,255,0.2)',
+                            '#6576ff'
+                        ],
+                        color: '#6576ff',
+                        data: this.dataset
+                    }] 
+                }
+            }).catch(error => console.log(error))
+        }
     },
     mounted() {
-        this[LOAD_RIGGING]().then(stat => {
-            this.rigging.labels = stat.labels
-            this.rigging.datasets[0].data = stat.data
-        }).catch(error => console.log(error))
+        this.updateChart()
     }
 }
 

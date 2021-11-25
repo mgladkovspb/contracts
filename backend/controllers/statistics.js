@@ -27,7 +27,7 @@ const generateIdsByDate = (start, count) => {
     let range = []
     for (let i = 1; i < count + 1; i++) {
         let d = moment(start).add(i, 'month')
-        let str = '' + d.year() + `${d.month()}`.padStart(2, '0')
+        let str = '' + d.year() + `${d.month() + 1}`.padStart(2, '0')
         range.push(parseInt(str))
     }
     return range
@@ -37,7 +37,7 @@ const aggregation = async (months, field) => {
     const range = generateDateRange(months)
     const result = {
         labels: generateLabels(months),
-        data: []//Array.from({ length: months }, () => 0)
+        data: []
     }
 
     const ids = generateIdsByDate(range.start, months)
@@ -65,6 +65,8 @@ const aggregation = async (months, field) => {
             }
         })
         temp.sort((a, b) => a.id - b.id)
+        console.log(ids)
+        console.log(temp)
         result.data = ids.map((id) => {
             let found = temp.find(item => item.id == id)
             return (!found) ? 0 : found.sum

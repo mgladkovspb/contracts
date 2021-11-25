@@ -11,7 +11,7 @@
             </div>
             <div class="align-end flex-sm-wrap g-4 flex-md-nowrap">
                 <div class="nk-sale-data">
-                    <span class="amount">346.2</span>
+                    <span class="amount">{{ currency(wageSummary.current) }}</span>
                     <span class="sub-title"><span class="change up text-success"><em class="icon ni ni-arrow-long-up"></em>2.45%</span>с пр. месяца&nbsp;&nbsp;</span>
                 </div>
                 <bar-chart :chart-data="wage" :options="options" :class="'nk-sales-ck'"></bar-chart>
@@ -26,31 +26,18 @@ import { mapActions } from 'vuex'
 
 import BarChart from '@/widgets/BarChart.vue'
 
+import format from '@/mixins/format'
+
 export default {
     name: 'AmountOfContracts',
+    mixins: [format],
     components: {
       BarChart
     },
     data() {
         return {
-            wage: {
-                labels: [],
-                dataUnit: 'USD',
-                stacked: true,
-                datasets: [{
-                    label: '',
-                    backgroundColor: [
-                        'rgba(101,118,255,0.2)',
-                        'rgba(101,118,255,0.2)',
-                        'rgba(101,118,255,0.2)',
-                        'rgba(101,118,255,0.2)',
-                        'rgba(101,118,255,0.2)',
-                        '#6576ff'
-                    ],
-                    color: ['rgba(101,118,255,0.2)', '#6576ff'],
-                    data: []
-                }] 
-            },
+            wage: null,
+            dataset: [],
             options: {
                 legend: {
                     display: false,
@@ -104,14 +91,42 @@ export default {
             }
         }
     },
+    computed: {
+        wageSummary() {
+            let temp = [...this.dataset]
+            return {
+                current: temp.pop()
+            }
+        },
+    },
     methods: {
-        ...mapActions([LOAD_WAGE])
+        ...mapActions([LOAD_WAGE]),
+        updateChart() {
+            this[LOAD_WAGE]().then(stat => {
+                this.dataset = stat.data
+                this.wage = {
+                    labels: stat.labels,
+                    dataUnit: 'USD',
+                    stacked: true,
+                    datasets: [{
+                        label: '',
+                        backgroundColor: [
+                            'rgba(101,118,255,0.2)',
+                            'rgba(101,118,255,0.2)',
+                            'rgba(101,118,255,0.2)',
+                            'rgba(101,118,255,0.2)',
+                            'rgba(101,118,255,0.2)',
+                            '#6576ff'
+                        ],
+                        color: ['rgba(101,118,255,0.2)', '#6576ff'],
+                        data: this.dataset
+                    }] 
+                }
+            }).catch(error => console.log(error))
+        }
     },
     mounted() {
-        this[LOAD_WAGE]().then(stat => {
-            this.wage.labels = stat.labels
-            this.wage.datasets[0].data = stat.data
-        }).catch(error => console.log(error))
+        this.updateChart()
     }
 }
 

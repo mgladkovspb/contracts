@@ -66,8 +66,11 @@ import { LOAD_CONTRACTS } from '@/store/contract.module'
 
 import InfiniteLoading from 'vue-infinite-loading'
 
+import format from '@/mixins/format'
+
 export default {
     name: 'ContractsList',
+    mixins: [format],
     components: {
         InfiniteLoading
     },
@@ -79,14 +82,6 @@ export default {
     },
     methods: {
         ...mapActions([LOAD_CONTRACTS]),
-        currency(num) {
-            const formatter = new Intl.NumberFormat('ru-RU', { 
-                style: 'currency', 
-                currency: 'RUB',
-                currencyDisplay: 'symbol'
-            })
-            return formatter.format(num)
-        },
         loadNextPage($state) {
             this.loading = true
             this[LOAD_CONTRACTS]({ page: this.page }).then(({ data }) => {
