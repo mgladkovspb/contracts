@@ -21,4 +21,6 @@ module.exports = {
         */
         before: configure
     },
+    publicPath:
+        process.env.NODE_ENV === "production" ? "./" : "/",
 }

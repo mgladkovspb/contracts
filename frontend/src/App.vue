@@ -15,10 +15,10 @@ export default {
         switchDayNightMode() {
             const hour = moment().hour()
             console.log(hour)
-            if(hour > 7 && hour <= 18) {
-                document.body.classList.add('dark-mode')
-            } else {
+            if(hour > 6 && hour < 18) {
                 document.body.classList.remove('dark-mode')
+            } else {
+                document.body.classList.add('dark-mode')
             }
         }
     },

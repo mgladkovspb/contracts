@@ -24,7 +24,6 @@ module.exports = options => {
     app.use('/', history())
 
     if(options.usessl) {
-        app.use('/', express.static(path.join(__dirname, '../frontend/dist')))
         https.createServer({
             key: fs.readFileSync(options.cert.key),
             cert: fs.readFileSync(options.cert.file)
