@@ -14,7 +14,8 @@ export default {
     methods: {
         switchDayNightMode() {
             const hour = moment().hour()
-            if(hour >= 18 && hour < 7) {
+            console.log(hour)
+            if(hour > 7 && hour <= 18) {
                 document.body.classList.add('dark-mode')
             } else {
                 document.body.classList.remove('dark-mode')
@@ -24,7 +25,7 @@ export default {
     mounted() {
         document.body.classList.add('nk-body', 'npc-invest', 'bg-lighter')
         this.switchDayNightMode()
-        setInterval(this.switchDayNightMode(), 1000 * 60 * 10)
+        setInterval(this.switchDayNightMode(), 1000 * 60)
     }
 }
 </script>
