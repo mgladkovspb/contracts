@@ -12,7 +12,7 @@
             <div class="align-end flex-sm-wrap g-4 flex-md-nowrap">
                 <div class="nk-sale-data">
                     <span class="amount">{{ currency(wageSummary.current) }}</span>
-                    <span class="sub-title"><span class="change up text-success"><em class="icon ni ni-arrow-long-up"></em>2.45%</span>с пр. месяца&nbsp;&nbsp;</span>
+                    <span class="sub-title">Текущий месяц</span>
                 </div>
                 <bar-chart :chart-data="wage" :options="options" :class="'nk-sales-ck'"></bar-chart>
             </div>

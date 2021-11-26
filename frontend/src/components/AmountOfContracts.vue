@@ -12,16 +12,16 @@
             </div>
             <div class="align-end gy-3 gx-5 flex-wrap flex-md-nowrap flex-lg-wrap flex-xxl-nowrap">
                 <div class="nk-sale-data-group flex-md-nowrap g-4">
-                    <div class="nk-sale-data">
+                    <!-- <div class="nk-sale-data">
                         <span class="amount">{{ currency(amountSummary.previous) }} <span class="change down text-danger"><em class="icon ni ni-arrow-long-down"></em>16.93%</span></span>
                         <span class="sub-title">Предыдущий месяц</span>
-                    </div>
+                    </div> -->
                     <div class="nk-sale-data">
-                        <span class="amount">{{ currency(amountSummary.current) }} <span class="change up text-success"><em class="icon ni ni-arrow-long-up"></em>4.26%</span></span>
-                        <span class="sub-title">Этот месяц</span>
+                        <span class="amount">{{ currency(amountSummary.current) }} </span>
+                        <span class="sub-title">Текущий месяц</span>
                     </div>
                 </div>
-                <bar-chart :chart-data="amount" :options="options" :class="'nk-sales-ck sales-revenue'"></bar-chart>
+                <bar-chart :chart-data="amount" :options="options" :class="'nk-sales-ck sales-revenue'" ></bar-chart>
             </div>
         </div>
     </div>

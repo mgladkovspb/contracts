@@ -30,8 +30,11 @@ async function listOfCities() {
 
     try {
         const group = await Contract.aggregate()
-            .group({ _id: '$city' }).exec()
+            .match({ city: { $ne: '' } })
+            .group({ _id: '$city' })
+            .exec()
         result = group.map(item => item._id)
+        result = result.sort()
     } catch (error) {
         console.log(error)
     }
@@ -44,8 +47,11 @@ async function listOfCustomers() {
 
     try {
         const group = await Contract.aggregate()
-            .group({ _id: '$customer' }).exec()
+            .match({ customer: { $ne: '' } })
+            .group({ _id: '$customer' })
+            .exec()
         result = group.map(item => item._id)
+        result = result.sort()
     } catch (error) {
         console.log(error)
     }
@@ -58,8 +64,11 @@ async function listOfObjects() {
 
     try {
         const group = await Contract.aggregate()
-            .group({ _id: '$object' }).exec()
+            .match({ object: { $ne: '' } })
+            .group({ _id: '$object' })
+            .exec()
         result = group.map(item => item._id)
+        result = result.sort()
     } catch (error) {
         console.log(error)
     }

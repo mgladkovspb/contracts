@@ -45,6 +45,7 @@ const aggregation = async (months, field) => {
     try {
         const query = await Contract.aggregate()
             .match({ 
+                state: 'accepted',
                 contractDate: { 
                     $gte: range.start, 
                     $lt: range.end
@@ -65,8 +66,6 @@ const aggregation = async (months, field) => {
             }
         })
         temp.sort((a, b) => a.id - b.id)
-        console.log(ids)
-        console.log(temp)
         result.data = ids.map((id) => {
             let found = temp.find(item => item.id == id)
             return (!found) ? 0 : found.sum

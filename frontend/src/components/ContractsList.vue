@@ -21,7 +21,7 @@
                     <div class="nk-tb-col"><span>Сумма</span></div>
                     <div class="nk-tb-col"><span>&nbsp;</span></div>
                 </div>
-                <div class="nk-tb-item" v-for="contract in contracts" :key="contract._id">
+                <div class="nk-tb-item" :class="rowClass(contract)" v-for="contract in contracts" :key="contract._id">
                     <div class="nk-tb-col">
                         <span class="tb-lead"><a href="#">#{{ contract.number }}</a></span>
                     </div>
@@ -93,6 +93,15 @@ export default {
                     $state.complete()
                 }
             })
+        },
+        rowClass(contract) {
+            let result = ''
+            switch(contract.state) {
+                case 'accepted': result = ''/*'bg-success-dim'*/; break
+                case 'draft': result = 'bg-primary-dim'; break
+                case 'deleted': result = 'bg-danger-dim'; break
+            }
+            return result
         }
     }
 }

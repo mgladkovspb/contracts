@@ -10,14 +10,14 @@
                     
                 </div>
             </div>
-            <div class="nk-sale-data-group align-center justify-between gy-3 gx-5">
-                <div class="nk-sale-data">
+            <!-- <div class="nk-sale-data-group align-center justify-between gy-3 gx-5"> -->
+                <!-- <div class="nk-sale-data">
                     <span class="amount">{{ currency(profitSummary.total) }}</span>
-                </div>
+                </div> -->
                 <!-- <div class="nk-sale-data">
                     <span class="amount sm">1,937 <small>договоров</small></span>
                 </div> -->
-            </div>
+            <!-- </div> -->
             <line-chart :chart-data="profit" :options="options" :class="'nk-sales-ck large'"></line-chart>
         </div>
     </div>
@@ -89,7 +89,7 @@ export default {
                             //     return '$ ' + value;
                             // },
                             min: 0,
-                            stepSize: 150000
+                            stepSize: 1000000
                         },
                         gridLines: {
                             color: 'rgba(82,100,132,.2)',
@@ -166,3 +166,9 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+.large {
+    height: 250px !important;
+}
+</style>

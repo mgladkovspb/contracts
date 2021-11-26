@@ -84,27 +84,19 @@
                                             <div class="col-lg-4">
                                                 <div class="form-group">
                                                     <label class="form-label" for="phone-no-1">Организация</label>
-                                                    <div class="form-control-wrap">
-                                                        <editable-select v-model="contract.customer" :options="customers"></editable-select>
-                                                        <!-- <input type="text" class="form-control" v-model="contract.customer"> -->
-                                                    </div>
+                                                    <editable-select v-model="contract.customer" :options="customers"></editable-select>
                                                 </div>
                                             </div>
                                             <div class="col-lg-4">
                                                 <div class="form-group">
                                                     <label class="form-label" for="phone-no-1">Объект</label>
-                                                    <div class="form-control-wrap">
-                                                        <editable-select v-model="contract.object" :options="objects"></editable-select>
-                                                        <!-- <input type="text" class="form-control" v-model="contract.object" :class="'select2 select2-container select2-container--default'"> -->
-                                                    </div>
+                                                    <editable-select v-model="contract.object" :options="objects"></editable-select>
                                                 </div>
                                             </div>
                                             <div class="col-lg-4">
                                                 <div class="form-group">
                                                     <label class="form-label">Город</label>
-                                                    <div class="form-control-wrap">
-                                                        <editable-select v-model="contract.city" :options="cities"></editable-select>
-                                                    </div>
+                                                    <editable-select v-model="contract.city" :options="cities"></editable-select>
                                                 </div>
                                             </div>
                                             <div class="col-12">
