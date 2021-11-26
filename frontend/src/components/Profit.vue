@@ -60,7 +60,13 @@ export default {
                             return data['labels'][tooltipItem[0]['index']];
                         },
                         label: function label(tooltipItem, data) {
-                            return data.datasets[tooltipItem.datasetIndex]['data'][tooltipItem['index']] + ' ' + '_get_data.dataUnit';
+                            const formatter = new Intl.NumberFormat('ru-RU', { 
+                                style: 'currency', 
+                                currency: 'RUB',
+                                currencyDisplay: 'symbol',
+                                notation: 'compact'
+                            })
+                            return formatter.format(data.datasets[tooltipItem.datasetIndex]['data'][tooltipItem['index']])
                         }
                     },
                     backgroundColor: '#eff6ff',
