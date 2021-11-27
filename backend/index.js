@@ -11,7 +11,7 @@ const app = express()
 module.exports = options => {
     const PORT = options.port || 3000
 
-    app.use(helmet())
+    app.use(helmet({ contentSecurityPolicy: false }))
     app.use(compression())
     app.use(cors())
 
