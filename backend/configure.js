@@ -14,7 +14,8 @@ module.exports = async app => {
             autoIndex: false,
         })
     }
-    global.jwtkey = crypto.randomBytes(48).toString('hex')
+    //global.jwtkey = crypto.randomBytes(48).toString('hex')
+    global.jwtkey = '1df60c852f59ef1865f1382a9efce836c50d10abe943b10fc4d6a914c107c8a25df6d340935f1d0effcfab31d2b7138f'
     app.use(express.json({ limit: '50mb' }))
     routes(app)
 }
