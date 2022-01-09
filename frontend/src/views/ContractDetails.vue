@@ -99,59 +99,97 @@
                                                     <editable-select v-model="contract.city" :options="cities"></editable-select>
                                                 </div>
                                             </div>
-                                            <div class="col-12">
-                                                <div class="row gy-4 align-center">
-                                                    <div class="col-lg-4">
-                                                        <div class="form-group">
-                                                            <label class="form-label">Сумма</label>
-                                                            <div class="form-control-wrap">
-                                                                <money-input v-model="contract.sum"></money-input>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        <div class="form-group">
-                                                            <label class="form-label">Аванс</label>
-                                                            <div class="form-control-wrap">
-                                                                <money-input v-model="contract.prepayment"></money-input>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        <div class="form-group">
-                                                            <label class="form-label">Остаток</label>
-                                                            <div class="form-control-wrap">
-                                                                <money-input :value="contract.sum - contract.prepayment" disabled></money-input>
-                                                            </div>
-                                                        </div>
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <label class="form-label">Вид работ</label>
+                                                    <div class="form-control-wrap">
+                                                        <input type="text" class="form-control" v-model="contract.typeOfWork" />
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-12">
-                                                <div class="row gy-4 align-center">
-                                                    <div class="col-lg-4">
-                                                        <div class="form-group">
-                                                            <label class="form-label">Рентабнльность</label>
-                                                            <div class="form-control-wrap">
-                                                                <money-input v-model="contract.profit"></money-input>
-                                                            </div>
-                                                        </div>
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <label class="form-label">Сметный расчет №</label>
+                                                    <div class="form-control-wrap">
+                                                        <input type="text" class="form-control" v-model="contract.estimateAccount" />
                                                     </div>
-                                                    <div class="col-lg-4">
-                                                        <div class="form-group">
-                                                            <label class="form-label">Себестоимость</label>
-                                                            <div class="form-control-wrap">
-                                                                <money-input :value="contract.sum - contract.profit" disabled></money-input>
-                                                            </div>
-                                                        </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-4"></div>
+
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <label class="form-label">Сумма</label>
+                                                    <div class="form-control-wrap">
+                                                        <money-input v-model="contract.sum"></money-input>
                                                     </div>
-                                                    <div class="col-lg-4">
-                                                        <div class="form-group">
-                                                            <label class="form-label">% Р.Д.</label>
-                                                            <div class="form-control-wrap">
-                                                                <money-input :value="(contract.sum > 0 ? contract.profit / contract.sum : 0).toFixed(2)" disabled></money-input>
-                                                            </div>
-                                                        </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <label class="form-label">Такелажные работы</label>
+                                                    <div class="form-control-wrap">
+                                                        <money-input v-model="contract.rigging"></money-input>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <label class="form-label">ФОТ</label>
+                                                    <div class="form-control-wrap">
+                                                        <money-input v-model="contract.wage"></money-input>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <label class="form-label">Материалы</label>
+                                                    <div class="form-control-wrap">
+                                                        <money-input v-model="contract.materials"></money-input>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <label class="form-label">Накладные</label>
+                                                    <div class="form-control-wrap">
+                                                        <money-input v-model="contract.overheads"></money-input>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-4"></div>
+
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <label class="form-label">Рентабнльность</label>
+                                                    <div class="form-control-wrap">
+                                                        <money-input :value="contract.profit = contract.sum - contract.costPrice" disabled></money-input>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <label class="form-label">Себестоимость</label>
+                                                    <div class="form-control-wrap">
+                                                        <money-input :value="contract.costPrice = contract.wage + contract.rigging + contract.materials + contract.overheads" disabled></money-input>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <label class="form-label">% Р.Д.</label>
+                                                    <div class="form-control-wrap">
+                                                        <money-input :value="(contract.sum > 0 ? contract.profit / contract.sum : 0).toFixed(2)" disabled></money-input>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="default-textarea">Комментарий</label>
+                                                    <div class="form-control-wrap">
+                                                        <textarea class="form-control no-resize" v-model="contract.comment"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -162,7 +200,7 @@
 
                             <div class="nk-block-head">
                                 <div class="nk-block-head-content">
-                                    <h4 class="title nk-block-title">Расходная часть</h4>
+                                    <h4 class="title nk-block-title">Дополнительно</h4>
                                     <div class="nk-block-des">
                                         <!-- <p>You can alow display form in column as example below.</p> -->
                                     </div>
@@ -177,15 +215,16 @@
                                         <div class="row g-4">
                                             <div class="col-12">
                                                 <div class="row gy-4 align-center">
-                                                    <div class="col-lg-4">
+                                                    <div class="col-lg-6">
                                                         <div class="form-group">
-                                                            <label class="form-label">ФОТ</label>
+                                                            <label class="form-label">Аванс</label>
                                                             <div class="form-control-wrap">
-                                                                <money-input v-model="contract.wage"></money-input>
+                                                                <money-input v-model="contract.prepayment"></money-input>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-4">
+                                                    
+                                                    <div class="col-lg-6">
                                                         <div class="form-group">
                                                             <label class="form-label">ФОТ аванс</label>
                                                             <div class="form-control-wrap">
@@ -193,31 +232,26 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-4">
+                                                    
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="row gy-4 align-center">
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group">
+                                                            <label class="form-label">Остаток</label>
+                                                            <div class="form-control-wrap">
+                                                                <money-input :value="contract.sum - contract.prepayment" disabled></money-input>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6">
                                                         <div class="form-group">
                                                             <label class="form-label">ФОТ остаток</label>
                                                             <div class="form-control-wrap">
                                                                 <money-input :value="contract.wage - contract.wagePrepayment" disabled></money-input>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-12">
-                                                <div class="row gy-4 align-center">
-                                                    <div class="col-lg-4">
-                                                        <div class="form-group">
-                                                            <label class="form-label">Такелажные работы</label>
-                                                            <div class="form-control-wrap">
-                                                                <money-input v-model="contract.rigging"></money-input>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        
                                                     </div>
                                                 </div>
                                             </div>
@@ -299,6 +333,11 @@ export default {
             result.wagePrepayment = this.contract.wagePrepayment
             result.rigging = this.contract.rigging
             result.state = this.contract.state
+            result.comment = this.contract.comment
+            result.typeOfWork = this.contract.typeOfWork
+            result.estimateAccount = this.contract.estimateAccount
+            result.overheads = this.contract.overheads
+            result.materials = this.contract.materials
             return result
         },
         sendData() {
@@ -332,6 +371,11 @@ export default {
                     this.contract.wagePrepayment = data.wagePrepayment
                     this.contract.rigging = data.rigging
                     this.contract.state = data.state
+                    this.contract.comment = data.comment
+                    this.contract.typeOfWork = data.typeOfWork
+                    this.contract.estimateAccount = data.estimateAccount
+                    this.contract.overheads = data.overheads
+                    this.contract.materials = data.materials
                 }).catch(message => console.log(message))
             }
 

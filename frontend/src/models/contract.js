@@ -16,6 +16,12 @@ class Contract {
         this.wagePrepayment = 0
         this.rigging = 0
         this.state = 'draft'
+        this.comment = ''
+        this.typeOfWork = ''
+        this.estimateAccount = ''
+        this.overheads = 0
+        this.materials = 0
+        this.costPrice = 0 // себестоимость
     }
 }
 

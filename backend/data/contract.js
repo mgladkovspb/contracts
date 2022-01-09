@@ -16,7 +16,12 @@ const Contract = new Schema({
     wage: { type: Number, default: 0 },
     wagePrepayment: { type: Number, default: 0 },
     rigging: { type: Number, default: 0 },
-    state: { type: String, default: 'draft' } // draft, deleted, accepted
+    state: { type: String, default: 'draft' }, // draft, deleted, accepted
+    comment: { type: String, default: '' },
+    typeOfWork: { type: String, default: '' },
+    estimateAccount: { type: String, default: '' },
+    overheads: { type: Number, default: 0},
+    materials: { type: Number, default: 0},
 })
 
 Contract.plugin(mongoosePaginate)
