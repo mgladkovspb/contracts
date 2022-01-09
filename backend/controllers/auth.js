@@ -9,7 +9,7 @@ const generateAccessToken = (id, name) => {
         name
     }
     console.log(global.jwtkey)
-    return jwt.sign(payload, global.jwtkey, { expiresIn: '3h' })
+    return jwt.sign(payload, '1df60c852f59ef1865f1382a9efce836c50d10abe943b10fc4d6a914c107c8a25df6d340935f1d0effcfab31d2b7138f'/*global.jwtkey*/, { expiresIn: '3h' })
 }
 
 async function signin(req, res) {
