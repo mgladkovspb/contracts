@@ -260,6 +260,22 @@
                                 </div>
                             </div>
 
+                            <div class="nk-block-head">
+                                <div class="nk-block-head-content">
+                                    <h4 class="title nk-block-title">Файлы</h4>
+                                    <div class="nk-block-des">
+                                        <!-- <p>You can alow display form in column as example below.</p> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card card-bordered">
+                                <div class="card-inner">
+                                    <div class="preview-blok">
+                                        <dropzone></dropzone>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -288,20 +304,22 @@ import Contract from '@/models/contract'
 import MoneyInput from '@/widgets/MoneyInput.vue'
 import ScrollTop from '@/widgets/ScrollTop.vue'
 import EditableSelect from '@/widgets/EditableSelect'
+import Dropzone from '@/components/Dropzone'
 
 export default {
     name: 'ContractDetails',
     components: {
         MoneyInput,
         ScrollTop,
-        EditableSelect
+        EditableSelect,
+        Dropzone
     },
     data() {
         return {
             contract: new Contract(),
             cities: [],
             customers: [],
-            objects: [],
+            objects: []
         }
     },
     methods: {
