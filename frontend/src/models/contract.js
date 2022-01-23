@@ -22,6 +22,7 @@ class Contract {
         this.overheads = 0
         this.materials = 0
         this.costPrice = 0 // себестоимость
+        this.originalReceived = false
     }
 }
 

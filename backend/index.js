@@ -5,6 +5,8 @@ const cors = require('cors')
 const helmet = require('helmet')
 const compression  = require('compression')
 const https = require('https')
+//const multer = require('multer')
+//const upload = multer()
 const configure = require('./configure')
 const app = express()
 
@@ -20,6 +22,7 @@ module.exports = options => {
     const publicPath = resolve(__dirname, '../dist')
     const staticConf = { maxAge: '1y', etag: false }
 
+    //app.use(upload.array())
     app.use(express.static(publicPath, staticConf))
     app.use('/', history())
 

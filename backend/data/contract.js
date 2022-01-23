@@ -20,8 +20,9 @@ const Contract = new Schema({
     comment: { type: String, default: '' },
     typeOfWork: { type: String, default: '' },
     estimateAccount: { type: String, default: '' },
-    overheads: { type: Number, default: 0},
-    materials: { type: Number, default: 0},
+    overheads: { type: Number, default: 0 },
+    materials: { type: Number, default: 0 },
+    originalReceived: { type: Boolean, default: false },
 })
 
 Contract.plugin(mongoosePaginate)

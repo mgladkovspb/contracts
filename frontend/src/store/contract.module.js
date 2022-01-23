@@ -10,6 +10,11 @@ export const INSERT_ONE_CONTRACT = "insertOneContract"
 export const UPDATE_ONE_CONTRACT = "updateOneContract"
 export const DELETE_ONE_CONTRACT = "deleteOneContract"
 
+export const UPLOAD_FILE = "uploadFile"
+export const DOWNLOAD_FILE = "downloadFile"
+export const DELETE_FILE = "deleteFile"
+export const CONTRACT_FILE_LIST = "contractFileList"
+
 const state = {}
 const getters = {}
 
@@ -25,7 +30,7 @@ const actions = {
     [GET_ONE_CONTRACT](context, id) {
         return new Promise((resolve, reject) => {
             ApiService.setHeader()
-            ApiService.get('api/contracts/' + id)
+            ApiService.get(`api/contracts/${id}`)
                 .then(({ data }) => resolve(data))
                 .catch(error => reject(error))
         })
@@ -82,6 +87,33 @@ const actions = {
         return new Promise((resolve, reject) => {
             ApiService.setHeader()
             ApiService.delete('api/contracts/' + id)
+                .then(({ data }) => resolve(data))
+                .catch(error => reject(error))
+        })
+    },
+    [CONTRACT_FILE_LIST](context, id) {
+        return new Promise((resolve, reject) => {
+            ApiService.setHeader()
+            ApiService.get(`api/contracts/${id}/files`)
+                .then(({ data }) => resolve(data))
+                .catch(error => reject(error))
+        })
+    },
+    [UPLOAD_FILE](context, params) {
+        return new Promise((resolve, reject) => {
+            ApiService.setHeader()
+            ApiService.upload(`api/contracts/${params.contract}/files`, params)
+                .then(({ data }) => resolve(data))
+                .catch(error => reject(error))
+        })
+    },
+    [DOWNLOAD_FILE](context, payload) {
+        return ApiService.download(`api/contracts/${payload.cid}/files/${payload.fid}/download`, payload.name)
+    },
+    [DELETE_FILE](context, id) {
+        return new Promise((resolve, reject) => {
+            ApiService.setHeader()
+            ApiService.delete(`api/contracts/${id}/files`)
                 .then(({ data }) => resolve(data))
                 .catch(error => reject(error))
         })

@@ -34,6 +34,18 @@
                                 <div class="card-inner">
                                     <form action="#">
                                         <div class="row g-4">
+                                            <div class="col-12">
+                                                <div class="preview-block">
+                                                    <div class="g-3 align-center flex-wrap">
+                                                        <div class="g">
+                                                            <div class="custom-control custom-control-sm custom-checkbox">
+                                                                <input type="checkbox" id="customCheck7" class="custom-control-input" v-model="contract.originalReceived">
+                                                                <label for="customCheck7" class="custom-control-label">Оригинал получен</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div class="col-lg-6">
                                                 <div class="form-control-wrap">
                                                     <label class="form-label">Номер договора</label>
@@ -271,7 +283,7 @@
                             <div class="card card-bordered">
                                 <div class="card-inner">
                                     <div class="preview-blok">
-                                        <dropzone></dropzone>
+                                        <dropzone :contract="$route.params.id"></dropzone>
                                     </div>
                                 </div>
                             </div>
@@ -356,6 +368,7 @@ export default {
             result.estimateAccount = this.contract.estimateAccount
             result.overheads = this.contract.overheads
             result.materials = this.contract.materials
+            result.originalReceived = this.contract.originalReceived
             return result
         },
         sendData() {
@@ -394,6 +407,7 @@ export default {
                     this.contract.estimateAccount = data.estimateAccount
                     this.contract.overheads = data.overheads
                     this.contract.materials = data.materials
+                    this.contract.originalReceived = data.originalReceived
                 }).catch(message => console.log(message))
             }
 

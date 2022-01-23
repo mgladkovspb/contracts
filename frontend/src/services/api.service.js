@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
-import JwtService from "@/services/jwt.service";
+import fileDownload from 'js-file-download'
+import JwtService from "@/services/jwt.service"
 
 function successResponseHandler(response) {
     return response
@@ -58,6 +59,16 @@ const ApiService = {
     delete(resource, globalHandler = true) {
         return Vue.axios.delete(resource, { globalHandler })
     },
+
+    upload(resource, params, globalHandler = true) {
+        return Vue.axios.post(`${resource}`, params, { globalHandler })
+    },
+
+    download(resorce, filename) {
+        return Vue.axios.get(resorce, { responseType: 'blob', }).then(res => {
+            fileDownload(res.data, filename)
+        })
+    }
 }
 
 export default ApiService
