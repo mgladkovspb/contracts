@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 const Contract = require('../data/contract')
 const Attachment = require('../data/attachment')
 const contractHelper = require('../data/contract.helper')
+const { resolve } = require('path')
 const fs = require('fs')
 const os = require('os')
 
@@ -150,6 +151,10 @@ async function uploadFile(req, res) {
         }
         const attachment = new Attachment(req.body)
         await attachment.save()
+        
+        const file = `${resolve(__dirname, '../../upload')}/${attachment._id}`
+        fs.writeFileSync(file, req.body.data, { encoding: 'base64' })
+
         res.json(attachment)
     } catch (error) {
         console.log(error)
@@ -167,10 +172,12 @@ async function downloadFile(req, res) {
             message: 'Файл не найден.' 
         })
 
-        const file = os.tmpdir() + '/' + doc.name
-        fs.writeFileSync(file, doc.data, { encoding: 'base64' })
-        res.download(file, doc.name, (err) => {
-            fs.unlinkSync(file)
+        const fileFrom = `${resolve(__dirname, '../../upload')}/${doc._id}`
+        const fileDst = os.tmpdir() + '/' + doc.name
+        //fs.writeFileSync(file, doc.data, { encoding: 'base64' })
+        fs.copyFileSync(fileFrom, fileDst)
+        res.download(fileDst, doc.name, (err) => {
+            fs.unlinkSync(fileDst)
         })
     } catch (error) {
         console.log(error)
@@ -182,6 +189,9 @@ async function deleteFile(req, res) {
         const deleted = await Attachment.deleteOne({
             _id: mongoose.Types.ObjectId(req.params.id)
         })
+
+        const file = `${resolve(__dirname, '../../upload')}/${req.params.id}`
+        fs.unlinkSync(file)
         res.json(deleted)
     } catch (error) {
         console.log(error)

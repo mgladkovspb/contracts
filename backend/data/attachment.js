@@ -6,7 +6,7 @@ const Attachment = new Schema({
     type: { type: String, string: '' },
     date: { type: Date },
     size: { type: Number, default: 0 },
-    data: { type: String }
+    //data: { type: String }
 })
 
 module.exports = model('Attachment', Attachment)
